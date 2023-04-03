@@ -94,10 +94,7 @@ export const UserProvider = ({ children }) => {
 			let token = isAuthenticated()
 			const storage = new handleStorage()
 
-			if (token === null) {
-				token = ''
-				storage.add('token', '')
-			} else {
+			if (token !== null) {
 				setToken(token)
 				storage.add('token', token)
 
@@ -109,7 +106,7 @@ export const UserProvider = ({ children }) => {
 						'Authorization': `Bearer ${token.access_token}`
 					},
 				})
-
+				
 				const json = await response.json()
 				setCurrentUser(json)
 			}

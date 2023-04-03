@@ -1,12 +1,12 @@
 class handleStorage {
 	add(key, value) {
-		localStorage.setItem(key, JSON.stringify(value))
+		return localStorage.setItem(key, JSON.stringify(value))
 	}
 	remove(key) {
-		localStorage.removeItem(key)
+		return localStorage.removeItem(key)
 	}
 	get(key) {
-		localStorage.getItem(key)
+		return localStorage.getItem(key)
 	}
 }
 
