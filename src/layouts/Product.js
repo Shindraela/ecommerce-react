@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react';
 import CartContext from '../contexts/CartContext';
 import { REACT_APP_API_BASE_URL } from '../constants';
+import { ProductCarousel } from '../components/ProductCarousel';
 
 export const Product = () => {
 	const toast = useToast()
@@ -84,7 +85,10 @@ export const Product = () => {
 					spacing={{ base: 8, md: 10 }}
 					py={{ base: 18, md: 24 }}>
 					<Flex>
-						<Image
+						{product.images && product.images.length > 1 ?
+							<ProductCarousel images={product.images} />
+							:
+							<Image
 							rounded={'md'}
 							alt={product.title}
 							src={product.images[0]}
@@ -92,7 +96,8 @@ export const Product = () => {
 							align={'center'}
 							w={'100%'}
 							h={{ base: '100%', sm: '400px', lg: '500px' }}
-						/>
+							/>
+						}
 					</Flex>
 
 					<Stack spacing={{ base: 6, md: 10 }}>
