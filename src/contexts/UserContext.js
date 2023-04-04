@@ -54,6 +54,29 @@ export const UserProvider = ({ children }) => {
 		}
 	}
 
+	const refreshToken = async (refreshToken) => {
+		const body = {
+			'refreshToken': refreshToken
+		}
+
+		try {
+			const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/refresh-token`, {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(body)
+			})
+
+			const json = await response.json()
+			return json
+		}
+		catch(error) {
+			console.error(error)
+		}
+	}
+
 	const fetchProfile = async (token) => {
 		if (token == null) return
 
@@ -95,8 +118,10 @@ export const UserProvider = ({ children }) => {
 			const storage = new handleStorage()
 
 			if (token !== null) {
-				setToken(token)
-				storage.add('token', token)
+				// call refresh token for setting new access token
+				const newToken = await refreshToken(token.refresh_token)
+				setToken(newToken)
+				storage.add('token', newToken)
 
 				const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/profile`, {
 					method: 'GET',
