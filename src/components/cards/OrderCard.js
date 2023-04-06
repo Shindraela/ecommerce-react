@@ -15,19 +15,8 @@ export const OrderCard = ({ order }) => {
 			justify='space-between'
 			align='flex-start'
 		>
-			<Stack
-				flex={1}
-				direction='column'
-				justify='flex-start'
-				align='flex-start'
-			>
-				<Stack
-					direction='column'
-					justify='flex-start'
-					align='flex-start'
-					p={1}
-					pt={2}
-				>
+			<Stack flex={1} direction='column' justify='flex-start' align='flex-start'>
+				<Stack direction='column' justify='flex-start' align='flex-start' p={1} pt={2}>
 					<Heading fontSize='lg' fontFamily='body'>
 						{order.customer}
 					</Heading>
@@ -35,13 +24,7 @@ export const OrderCard = ({ order }) => {
 					<Text textAlign='center'>{order.order_date}</Text>
 				</Stack>
 
-				<Stack
-					width='100%'
-					mt='2rem'
-					direction='row'
-					padding={2}
-					align='center'
-				>
+				<Stack width='100%' mt='2rem' direction='row' padding={2} align='center'>
 					<Text>{order.delivery_status}</Text>
 					{order.delivery_status === 'shipped' ? (
 						<CheckCircleIcon color='green' />
@@ -51,13 +34,7 @@ export const OrderCard = ({ order }) => {
 				</Stack>
 			</Stack>
 
-			<Stack
-				direction='column'
-				justify='flex-start'
-				align='flex-start'
-				p={1}
-				pt={2}
-			>
+			<Stack direction='column' justify='flex-start' align='flex-start' p={1} pt={2}>
 				<Heading fontSize='lg' fontFamily='body'>
 					{order.cost}€
 				</Heading>

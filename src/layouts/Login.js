@@ -57,20 +57,11 @@ export const Login = () => {
 					</Text>
 				</Stack>
 
-				<Box
-					rounded='lg'
-					bg={useColorModeValue('white', 'gray.700')}
-					boxShadow='lg'
-					p={8}
-				>
+				<Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
 					<Stack spacing={4}>
 						<FormControl id='email'>
 							<FormLabel>Email</FormLabel>
-							<Input
-								type='email'
-								value={email}
-								onChange={e => setEmail(e.target.value)}
-							/>
+							<Input type='email' value={email} onChange={e => setEmail(e.target.value)} />
 						</FormControl>
 
 						<FormControl id='password'>
@@ -84,9 +75,7 @@ export const Login = () => {
 								<InputRightElement h='full'>
 									<Button
 										variant='ghost'
-										onClick={() =>
-											setShowPassword(showPassword => !showPassword)
-										}
+										onClick={() => setShowPassword(showPassword => !showPassword)}
 									>
 										{showPassword ? <ViewIcon /> : <ViewOffIcon />}
 									</Button>

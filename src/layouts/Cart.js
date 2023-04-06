@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { SimpleGrid, Flex, Heading, Stack, Text } from '@chakra-ui/react'
 import CartContext from '../contexts/CartContext'
-import { CartCard } from '../components/CartCard'
-import { PaymentForm } from '../components/PaymentForm'
+import { CartCard } from '../components/cards/CartCard'
+import { PaymentForm } from '../components/forms/PaymentForm'
 import ProductsContext from '../contexts/ProductsContext'
 import { formattedCart } from '../utils'
 
@@ -15,9 +15,7 @@ export const Cart = () => {
 	const { cart, getTotal } = useContext(CartContext)
 	const { allProducts } = useContext(ProductsContext)
 	const currentCart = () =>
-		Object.keys(cart).map(productId =>
-			formattedCart(allProducts, cart[productId]),
-		)
+		Object.keys(cart).map(productId => formattedCart(allProducts, cart[productId]))
 	const total = getTotal()
 
 	return (

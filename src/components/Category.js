@@ -7,20 +7,14 @@ export const Category = ({ category }) => {
 	const { setAllProducts } = useContext(ProductsContext)
 
 	const fetchProductsByCategory = async () => {
-		const response = await fetch(
-			`${REACT_APP_API_BASE_URL}/products/?categoryId=${category.id}`,
-		)
+		const response = await fetch(`${REACT_APP_API_BASE_URL}/products/?categoryId=${category.id}`)
 		const json = await response.json()
 
 		setAllProducts([...json])
 	}
 
 	return (
-		<Button
-			colorScheme='teal'
-			variant='solid'
-			onClick={fetchProductsByCategory}
-		>
+		<Button colorScheme='teal' variant='solid' onClick={fetchProductsByCategory}>
 			{category.name}
 		</Button>
 	)

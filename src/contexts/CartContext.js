@@ -12,9 +12,7 @@ export const CartProvider = ({ children }) => {
 		if (cart[productId]) {
 			cart[productId].quantity += 1
 		} else {
-			const response = await fetch(
-				`${REACT_APP_API_BASE_URL}/products/${productId}`,
-			)
+			const response = await fetch(`${REACT_APP_API_BASE_URL}/products/${productId}`)
 			const json = await response.json()
 
 			cart[productId] = {
@@ -53,9 +51,7 @@ export const CartProvider = ({ children }) => {
 	}
 
 	return (
-		<CartContext.Provider
-			value={{ cart, setCart, getCounter, getTotal, add, decrease }}
-		>
+		<CartContext.Provider value={{ cart, setCart, getCounter, getTotal, add, decrease }}>
 			{children}
 		</CartContext.Provider>
 	)

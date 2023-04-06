@@ -62,44 +62,27 @@ export const Signup = () => {
 					</Heading>
 				</Stack>
 
-				<Box
-					rounded='lg'
-					bg={useColorModeValue('white', 'gray.700')}
-					boxShadow='lg'
-					p={8}
-				>
+				<Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
 					<Stack spacing={4}>
 						<HStack>
 							<Box>
 								<FormControl id='name' isRequired>
 									<FormLabel>First Name</FormLabel>
-									<Input
-										type='text'
-										value={name}
-										onChange={e => setName(e.target.value)}
-									/>
+									<Input type='text' value={name} onChange={e => setName(e.target.value)} />
 								</FormControl>
 							</Box>
 
 							<Box>
 								<FormControl id='email' isRequired>
 									<FormLabel>Email address</FormLabel>
-									<Input
-										type='email'
-										value={email}
-										onChange={e => setEmail(e.target.value)}
-									/>
+									<Input type='email' value={email} onChange={e => setEmail(e.target.value)} />
 								</FormControl>
 							</Box>
 						</HStack>
 
 						<FormControl id='avatar' isRequired>
 							<FormLabel>Avatar</FormLabel>
-							<Input
-								type='text'
-								value={avatar}
-								onChange={e => setAvatar(e.target.value)}
-							/>
+							<Input type='text' value={avatar} onChange={e => setAvatar(e.target.value)} />
 						</FormControl>
 
 						<FormControl id='password' isRequired>
@@ -113,9 +96,7 @@ export const Signup = () => {
 								<InputRightElement h='full'>
 									<Button
 										variant='ghost'
-										onClick={() =>
-											setShowPassword(showPassword => !showPassword)
-										}
+										onClick={() => setShowPassword(showPassword => !showPassword)}
 									>
 										{showPassword ? <ViewIcon /> : <ViewOffIcon />}
 									</Button>

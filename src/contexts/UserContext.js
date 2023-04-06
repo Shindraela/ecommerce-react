@@ -58,17 +58,14 @@ export const UserProvider = ({ children }) => {
 		}
 
 		try {
-			const response = await fetch(
-				`${REACT_APP_API_BASE_URL}/auth/refresh-token`,
-				{
-					method: 'POST',
-					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(body),
+			const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/refresh-token`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
 				},
-			)
+				body: JSON.stringify(body),
+			})
 
 			const json = await response.json()
 			return json
@@ -100,7 +97,7 @@ export const UserProvider = ({ children }) => {
 		}
 	}
 
-	const isAuthenticated = () => {
+	const getToken = () => {
 		const storage = new handleStorage()
 		const token = storage.get('token')
 
@@ -113,7 +110,7 @@ export const UserProvider = ({ children }) => {
 
 	useEffect(() => {
 		const checkLoggedIn = async () => {
-			let token = isAuthenticated()
+			let token = getToken()
 			const storage = new handleStorage()
 
 			if (token !== null) {
@@ -154,7 +151,7 @@ export const UserProvider = ({ children }) => {
 				token,
 				fetchToken,
 				setToken,
-				isAuthenticated,
+				getToken,
 				currentUser,
 				setCurrentUser,
 				logout,

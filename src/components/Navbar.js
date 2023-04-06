@@ -38,7 +38,7 @@ const Links = [
 
 export const Navbar = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
-	const { isAuthenticated, currentUser, logout } = useContext(UserContext)
+	const { getToken, currentUser, logout } = useContext(UserContext)
 	const { getCounter } = useContext(CartContext)
 	const count = getCounter()
 
@@ -57,7 +57,7 @@ export const Navbar = () => {
 					<Box>Logo</Box>
 					<HStack as='nav' spacing={4} display={{ base: 'none', md: 'flex' }}>
 						{Links.map(link => (
-							<Link key={link.name} to={link.href}>
+							<Link key={link.id} to={link.href}>
 								{link.name}
 							</Link>
 						))}
@@ -69,16 +69,10 @@ export const Navbar = () => {
 				</HStack>
 
 				<Flex align='center'>
-					{isAuthenticated && currentUser ? (
+					{getToken && currentUser ? (
 						<Menu>
 							<SearchBar />
-							<MenuButton
-								as={Button}
-								rounded='full'
-								variant='link'
-								cursor='pointer'
-								minW={0}
-							>
+							<MenuButton as={Button} rounded='full' variant='link' cursor='pointer' minW={0}>
 								<Avatar size='sm' src={currentUser.avatar} />
 							</MenuButton>
 
@@ -94,12 +88,7 @@ export const Navbar = () => {
 						<Menu>
 							<SearchBar />
 
-							<Stack
-								flex={{ base: 1, md: 0 }}
-								justify='flex-end'
-								direction='row'
-								spacing={6}
-							>
+							<Stack flex={{ base: 1, md: 0 }} justify='flex-end' direction='row' spacing={6}>
 								<Button fontSize='sm' fontWeight={400} variant='link'>
 									<Link to={URLS.SIGNUP}>Sign Up</Link>
 								</Button>
@@ -126,7 +115,7 @@ export const Navbar = () => {
 				<Box pb={4} display={{ md: 'none' }}>
 					<Stack as='nav' spacing={4}>
 						{Links.map(link => (
-							<Link key={link.name} to={link.href}>
+							<Link key={link.id} to={link.href}>
 								{link.name}
 							</Link>
 						))}

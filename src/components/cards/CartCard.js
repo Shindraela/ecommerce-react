@@ -1,14 +1,6 @@
-import {
-	Button,
-	Center,
-	Flex,
-	Heading,
-	Image,
-	Stack,
-	Text,
-} from '@chakra-ui/react'
+import { Button, Center, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import { useContext } from 'react'
-import CartContext from '../contexts/CartContext'
+import CartContext from '../../contexts/CartContext'
 
 export const CartCard = ({ product }) => {
 	const { add, decrease } = useContext(CartContext)
@@ -28,14 +20,7 @@ export const CartCard = ({ product }) => {
 				pt={2}
 				pl={2}
 			>
-				<Stack
-					flex={1}
-					direction='column'
-					justify='flex-start'
-					align='flex-start'
-					p={1}
-					pt={2}
-				>
+				<Stack flex={1} direction='column' justify='flex-start' align='flex-start' p={1} pt={2}>
 					<Heading fontSize='lg' fontFamily='body'>
 						{product.title}
 					</Heading>

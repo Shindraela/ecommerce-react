@@ -30,9 +30,7 @@ export const Product = () => {
 	useEffect(() => {
 		const fetchProduct = async () => {
 			try {
-				const response = await fetch(
-					`${REACT_APP_API_BASE_URL}/products/${params.id}`,
-				)
+				const response = await fetch(`${REACT_APP_API_BASE_URL}/products/${params.id}`)
 				const json = await response.json()
 
 				setProduct(json)

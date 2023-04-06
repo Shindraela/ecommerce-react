@@ -1,7 +1,7 @@
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react'
 import profile from '../profile.json'
-import { OrderCard } from '../components/OrderCard.js'
-import { UserPersonalData } from '../components/UserPersonalData.js'
+import { OrderCard } from '../components/cards/OrderCard'
+import { UserPersonalData } from '../components/UserPersonalData'
 
 export const Profile = () => {
 	return (
@@ -13,9 +13,7 @@ export const Profile = () => {
 			<TabPanels p='2rem'>
 				<TabPanel>
 					{profile.orders &&
-						profile.orders.map(order => (
-							<OrderCard key={order.reference} order={order} />
-						))}
+						profile.orders.map(order => <OrderCard key={order.reference} order={order} />)}
 				</TabPanel>
 				<TabPanel>
 					<UserPersonalData data={profile} />

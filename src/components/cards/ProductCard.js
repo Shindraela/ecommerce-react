@@ -13,8 +13,8 @@ import {
 } from '@chakra-ui/react'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import CartContext from '../contexts/CartContext'
-import { URLS } from '../constants'
+import CartContext from '../../contexts/CartContext'
+import { URLS } from '../../constants'
 
 export const ProductCard = ({ product }) => {
 	const { add } = useContext(CartContext)
