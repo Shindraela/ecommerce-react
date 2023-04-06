@@ -10,6 +10,4 @@ class handleStorage {
 	}
 }
 
-export {
-	handleStorage,
-}
+export { handleStorage }

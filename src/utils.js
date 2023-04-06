@@ -7,10 +7,7 @@ const formattedCart = (products, purchase) => {
 		title: products[purchase.productId].title,
 		quantity: purchase.quantity,
 		cost: purchase.quantity * products[purchase.productId].price,
-	};
+	}
 }
 
-export {
-	maskedNumber,
-	formattedCart,
-}
+export { maskedNumber, formattedCart }

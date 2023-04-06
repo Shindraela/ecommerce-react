@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react'
 import {
-  Text,
-  Box,
-  Progress,
-  Heading,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  ButtonGroup,
+	Text,
+	Box,
+	Progress,
+	Heading,
+	Flex,
+	FormControl,
+	FormLabel,
+	Input,
+	Select,
+	ButtonGroup,
 	Button,
 	Center,
 	Stack,
@@ -20,224 +20,224 @@ import {
 	ModalCloseButton,
 	ModalBody,
 	ModalFooter,
-} from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
-import { maskedNumber } from '../utils';
-import countries from '../countries.json';
-import CartContext from '../contexts/CartContext';
-import { URLS } from '../constants';
+} from '@chakra-ui/react'
+import { useNavigate } from 'react-router'
+import { maskedNumber } from '../utils'
+import countries from '../countries.json'
+import CartContext from '../contexts/CartContext'
+import { URLS } from '../constants'
 
 const Form1 = ({ formData, onChange }) => {
-  return (
-    <Flex direction='column' p={6} pb={0}>
-      <Heading w='100%' size='md' fontWeight='bold' mb='2%'>
-        Customer
-      </Heading>
+	return (
+		<Flex direction='column' p={6} pb={0}>
+			<Heading w='100%' size='md' fontWeight='bold' mb='2%'>
+				Customer
+			</Heading>
 
-      <Flex>
-        <FormControl isRequired mr='5%'>
-          <FormLabel htmlFor='firstName' fontWeight='normal'>
-            First name
-          </FormLabel>
+			<Flex>
+				<FormControl isRequired mr='5%'>
+					<FormLabel htmlFor='firstName' fontWeight='normal'>
+						First name
+					</FormLabel>
 
-          <Input
-            type='text'
-            id='firstName'
-            name='firstName'
-            value={formData.form1.firstName}
-            onChange={(e) => onChange('form1', e.target.name, e.target.value)}
-          />
-        </FormControl>
+					<Input
+						type='text'
+						id='firstName'
+						name='firstName'
+						value={formData.form1.firstName}
+						onChange={e => onChange('form1', e.target.name, e.target.value)}
+					/>
+				</FormControl>
 
-        <FormControl isRequired>
-          <FormLabel htmlFor='lastName' fontWeight='normal'>
-            Last name
-          </FormLabel>
+				<FormControl isRequired>
+					<FormLabel htmlFor='lastName' fontWeight='normal'>
+						Last name
+					</FormLabel>
 
-          <Input
-            type='text'
-            id='lastName'
-            name='lastName'
-            value={formData.form1.lastName}
-            onChange={(e) => onChange('form1', e.target.name, e.target.value)}
-          />
-        </FormControl>
-      </Flex>
+					<Input
+						type='text'
+						id='lastName'
+						name='lastName'
+						value={formData.form1.lastName}
+						onChange={e => onChange('form1', e.target.name, e.target.value)}
+					/>
+				</FormControl>
+			</Flex>
 
-      <Flex mt='2%'>
-        <FormControl>
-          <FormLabel htmlFor='tel' fontWeight='normal'>
-            Phone number
-          </FormLabel>
+			<Flex mt='2%'>
+				<FormControl>
+					<FormLabel htmlFor='tel' fontWeight='normal'>
+						Phone number
+					</FormLabel>
 
-          <Input
-            id='tel'
-            type='tel'
-            name='phone'
-            value={formData.form1.phone}
-            onChange={(e) => onChange('form1', e.target.name, e.target.value)}
-          />
-        </FormControl>
-      </Flex>
-    </Flex>
-  );
-};
+					<Input
+						id='tel'
+						type='tel'
+						name='phone'
+						value={formData.form1.phone}
+						onChange={e => onChange('form1', e.target.name, e.target.value)}
+					/>
+				</FormControl>
+			</Flex>
+		</Flex>
+	)
+}
 
 const Form2 = ({ formData, onChange }) => {
-  return (
-    <Flex direction='column' p={6} pb={2}>
-      <Heading w='100%' size='md' fontWeight='bold' mb='2%'>
-        Shipping address
-      </Heading>
+	return (
+		<Flex direction='column' p={6} pb={2}>
+			<Heading w='100%' size='md' fontWeight='bold' mb='2%'>
+				Shipping address
+			</Heading>
 
-      <Flex>
-        <FormControl mr='5%' isRequired>
-          <FormLabel htmlFor='fullName' fontWeight='normal'>
-            Full name
-          </FormLabel>
+			<Flex>
+				<FormControl mr='5%' isRequired>
+					<FormLabel htmlFor='fullName' fontWeight='normal'>
+						Full name
+					</FormLabel>
 
-          <Input
-            type='text'
-            id='fullName'
-            name='fullName'
-            onChange={(e) => onChange('form2', e.target.name, e.target.value)}
-            value={formData.form2.fullName}
-          />
-        </FormControl>
+					<Input
+						type='text'
+						id='fullName'
+						name='fullName'
+						onChange={e => onChange('form2', e.target.name, e.target.value)}
+						value={formData.form2.fullName}
+					/>
+				</FormControl>
 
-        <FormControl isRequired>
-          <FormLabel htmlFor='address' fontWeight='normal'>
-            Address
-          </FormLabel>
+				<FormControl isRequired>
+					<FormLabel htmlFor='address' fontWeight='normal'>
+						Address
+					</FormLabel>
 
-          <Input
-            id='address'
-            type='text'
-            value={formData.form1.address}
-            name='address'
-            onChange={(e) => onChange('form1', e.target.name, e.target.value)}
-          />
-        </FormControl>
-      </Flex>
+					<Input
+						id='address'
+						type='text'
+						value={formData.form1.address}
+						name='address'
+						onChange={e => onChange('form1', e.target.name, e.target.value)}
+					/>
+				</FormControl>
+			</Flex>
 
-      <Flex mt='2%'>
-        <FormControl isRequired mr='5%'>
-          <FormLabel>Country</FormLabel>
+			<Flex mt='2%'>
+				<FormControl isRequired mr='5%'>
+					<FormLabel>Country</FormLabel>
 
-          <Select
-            name='country'
-            onChange={(e) => onChange('form2', e.target.name, e.target.value)}
-            placeholder='Select country'
-          >
-            {countries.map((country) => (
-              <option key={country.code} value={formData.form2.selectedCountry}>
-                {country.name}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
+					<Select
+						name='country'
+						onChange={e => onChange('form2', e.target.name, e.target.value)}
+						placeholder='Select country'
+					>
+						{countries.map(country => (
+							<option key={country.code} value={formData.form2.selectedCountry}>
+								{country.name}
+							</option>
+						))}
+					</Select>
+				</FormControl>
 
-        <FormControl isRequired>
-          <FormLabel htmlFor='city' fontWeight='normal'>
-            City
-          </FormLabel>
+				<FormControl isRequired>
+					<FormLabel htmlFor='city' fontWeight='normal'>
+						City
+					</FormLabel>
 
-          <Input
-            type='text'
-            id='city'
-            name='city'
-            value={formData.form2.city}
-            onChange={(e) => onChange('form2', e.target.name, e.target.value)}
-          />
-        </FormControl>
-      </Flex>
-    </Flex>
-  );
-};
+					<Input
+						type='text'
+						id='city'
+						name='city'
+						value={formData.form2.city}
+						onChange={e => onChange('form2', e.target.name, e.target.value)}
+					/>
+				</FormControl>
+			</Flex>
+		</Flex>
+	)
+}
 
 const Form3 = ({ formData, onChange }) => {
-  return (
-    <Flex direction='column' p={6} pb={2}>
-      <Heading w='100%' size='md' fontWeight='bold' mb='2%'>
-        Payment details
-      </Heading>
+	return (
+		<Flex direction='column' p={6} pb={2}>
+			<Heading w='100%' size='md' fontWeight='bold' mb='2%'>
+				Payment details
+			</Heading>
 
-      <Flex>
-        <FormControl mr='5%' isRequired>
-          <FormLabel htmlFor='cardName' fontWeight='normal'>
-            Name On Card
-          </FormLabel>
+			<Flex>
+				<FormControl mr='5%' isRequired>
+					<FormLabel htmlFor='cardName' fontWeight='normal'>
+						Name On Card
+					</FormLabel>
 
-          <Input
-            type='text'
-            id='cardName'
-            name='cardName'
-            onChange={(e) => onChange('form3', e.target.name, e.target.value)}
-            value={formData.form3.cardName}
-          />
-        </FormControl>
+					<Input
+						type='text'
+						id='cardName'
+						name='cardName'
+						onChange={e => onChange('form3', e.target.name, e.target.value)}
+						value={formData.form3.cardName}
+					/>
+				</FormControl>
 
-        <FormControl isRequired>
-          <FormLabel htmlFor='cardNumber' fontWeight='normal'>
-            Card Number
-          </FormLabel>
+				<FormControl isRequired>
+					<FormLabel htmlFor='cardNumber' fontWeight='normal'>
+						Card Number
+					</FormLabel>
 
-          <Input
-            type='text'
-            id='cardNumber'
-            name='cardNumber'
-            value={formData.form3.cardNumber}
-            onChange={(e) => onChange('form3', e.target.name, e.target.value)}
-          />
-        </FormControl>
-      </Flex>
+					<Input
+						type='text'
+						id='cardNumber'
+						name='cardNumber'
+						value={formData.form3.cardNumber}
+						onChange={e => onChange('form3', e.target.name, e.target.value)}
+					/>
+				</FormControl>
+			</Flex>
 
-      <Flex mt='2%'>
-        <FormControl mr='5%' isRequired>
-          <FormLabel htmlFor='expiryDate' fontWeight='normal'>
-            Expiry Date
-          </FormLabel>
+			<Flex mt='2%'>
+				<FormControl mr='5%' isRequired>
+					<FormLabel htmlFor='expiryDate' fontWeight='normal'>
+						Expiry Date
+					</FormLabel>
 
-          <Input
-            type='date'
-            id='expiryDate'
-            name='expiryDate'
-            value={formData.form3.expiryDate}
-            onChange={(e) => onChange('form3', e.target.name, e.target.value)}
-          />
-        </FormControl>
+					<Input
+						type='date'
+						id='expiryDate'
+						name='expiryDate'
+						value={formData.form3.expiryDate}
+						onChange={e => onChange('form3', e.target.name, e.target.value)}
+					/>
+				</FormControl>
 
-        <FormControl isRequired>
-          <FormLabel htmlFor='cvv' fontWeight='normal'>
-            CVV
-          </FormLabel>
+				<FormControl isRequired>
+					<FormLabel htmlFor='cvv' fontWeight='normal'>
+						CVV
+					</FormLabel>
 
-          <Input
-            type='text'
-            id='cvv'
-            name='cvv'
-            value={formData.form3.cvv}
-            onChange={(e) => onChange('form3', e.target.name, e.target.value)}
-          />
-        </FormControl>
-      </Flex>
-    </Flex>
-  );
-};
+					<Input
+						type='text'
+						id='cvv'
+						name='cvv'
+						value={formData.form3.cvv}
+						onChange={e => onChange('form3', e.target.name, e.target.value)}
+					/>
+				</FormControl>
+			</Flex>
+		</Flex>
+	)
+}
 
 const Form4 = ({ formData, onChange }) => {
-  return (
-    <Flex direction='column' p={6} pb={2}>
-      <Heading w='100%' size='md' fontWeight='bold' mb='2%'>
-        Order Summary
-      </Heading>
+	return (
+		<Flex direction='column' p={6} pb={2}>
+			<Heading w='100%' size='md' fontWeight='bold' mb='2%'>
+				Order Summary
+			</Heading>
 
 			<Center>
 				<Stack
 					flex={1}
-					flexDirection='row'
-					justifyContent='space-between'
-					alignItems='flex-start'
+					direction='row'
+					justify='space-between'
+					align='flex-start'
 					pt={2}
 				>
 					<Box>
@@ -273,14 +273,14 @@ const Form4 = ({ formData, onChange }) => {
 					</Box>
 				</Stack>
 			</Center>
-    </Flex>
-  );
-};
+		</Flex>
+	)
+}
 
 const PaymentModal = ({ modalIsOpen, setModalOpen }) => {
 	const nav = useNavigate()
 
-  return (
+	return (
 		<Modal
 			isCentered
 			isOpen={modalIsOpen}
@@ -292,79 +292,84 @@ const PaymentModal = ({ modalIsOpen, setModalOpen }) => {
 				<ModalHeader>Order succeed</ModalHeader>
 				<ModalCloseButton />
 				<ModalBody>
-					<Text>You will receive an email from us soon with all the delivery details!</Text>
+					<Text>
+						You will receive an email from us soon with all the delivery
+						details!
+					</Text>
 				</ModalBody>
 
 				<ModalFooter>
 					<Button variant='ghost' mr={3} onClick={() => setModalOpen(false)}>
 						Close
 					</Button>
-					<Button colorScheme='blue' onClick={() => nav(URLS.HOMEPAGE)}>Go Home</Button>
+					<Button colorScheme='blue' onClick={() => nav(URLS.HOMEPAGE)}>
+						Go Home
+					</Button>
 				</ModalFooter>
 			</ModalContent>
 		</Modal>
-  )
+	)
 }
 
 export const PaymentForm = () => {
-  const [step, setStep] = useState(1)
-  const [progress, setProgress] = useState(25)
+	const [step, setStep] = useState(1)
+	const [progress, setProgress] = useState(25)
 	const [modalIsOpen, setModalOpen] = useState(false)
 	const { cart, setCart } = useContext(CartContext)
 	const initCart = {}
 
-  const [formData, setFormData] = useState({
-    form1: {
-      firstName: '',
-      setFirstName: () => {},
-      lastName: '',
-      setLastName: () => {},
-      phone: '',
-      setPhone: () => {},
-    },
-    form2: {
-      fullName: '',
-      setFullName: () => {},
-      address: '',
-      setAddress: () => {},
-      selectedCountry: '',
-      setSelectedCountry: () => {},
-      city: '',
-      setCity: () => {},
-    },
-    form3: {
-      cardName: '',
-      setCardName: () => {},
-      cardNumber: '',
-      setCardNumber: () => {},
-      expiryDate: '',
-      setExpiryDate: () => {},
-      cvv: '',
-      setCvv: () => {},
-    },
+	const [formData, setFormData] = useState({
+		form1: {
+			firstName: '',
+			setFirstName: () => {},
+			lastName: '',
+			setLastName: () => {},
+			phone: '',
+			setPhone: () => {},
+		},
+		form2: {
+			fullName: '',
+			setFullName: () => {},
+			address: '',
+			setAddress: () => {},
+			selectedCountry: '',
+			setSelectedCountry: () => {},
+			city: '',
+			setCity: () => {},
+		},
+		form3: {
+			cardName: '',
+			setCardName: () => {},
+			cardNumber: '',
+			setCardNumber: () => {},
+			expiryDate: '',
+			setExpiryDate: () => {},
+			cvv: '',
+			setCvv: () => {},
+		},
 	})
 
-  const onChange = (formName, fieldName, value) => {
-    setFormData((oldFormData) => ({
-      ...oldFormData,
-      [formName]: { ...oldFormData[formName], [fieldName]: value },
-    }))
+	const onChange = (formName, fieldName, value) => {
+		setFormData(oldFormData => ({
+			...oldFormData,
+			[formName]: { ...oldFormData[formName], [fieldName]: value },
+		}))
 	}
 
 	const onSubmit = () => {
 		setCart({ ...initCart })
 		setModalOpen(true)
-  }
+	}
 
-  return (
+	return (
 		<>
-			{Object.values(cart).length > 0 ?
+			{Object.values(cart).length > 0 ? (
 				<Box
 					borderWidth='1px'
 					rounded='lg'
 					shadow='1px 1px 3px rgba(0,0,0,0.3)'
 					maxWidth={800}
-					direction={{base: 'column', md: 'row' }}
+					direction={{ base: 'column', md: 'row' }}
 					p={4}
 					m={6}
 					as='form'
@@ -388,12 +393,12 @@ export const PaymentForm = () => {
 					)}
 
 					<ButtonGroup mt='5%' p={4} w='100%'>
-						<Flex flex={1} justifyContent='space-between'>
+						<Flex flex={1} justify='space-between'>
 							<Flex>
 								<Button
 									onClick={() => {
-										setStep(step - 1);
-										setProgress(progress - 25);
+										setStep(step - 1)
+										setProgress(progress - 25)
 									}}
 									isDisabled={step === 1}
 									colorScheme='teal'
@@ -407,11 +412,11 @@ export const PaymentForm = () => {
 									w='7rem'
 									isDisabled={step === 4}
 									onClick={() => {
-										setStep(step + 1);
+										setStep(step + 1)
 										if (step === 4) {
-											setProgress(100);
+											setProgress(100)
 										} else {
-											setProgress(progress + 25);
+											setProgress(progress + 25)
 										}
 									}}
 									colorScheme='teal'
@@ -434,9 +439,11 @@ export const PaymentForm = () => {
 						</Flex>
 					</ButtonGroup>
 				</Box>
-			: null}
-			
-			{modalIsOpen ? <PaymentModal modalIsOpen={modalIsOpen} setModalOpen={setModalOpen} /> : null}
-    </>
-  );
-};
+			) : null}
+
+			{modalIsOpen ? (
+				<PaymentModal modalIsOpen={modalIsOpen} setModalOpen={setModalOpen} />
+			) : null}
+		</>
+	)
+}

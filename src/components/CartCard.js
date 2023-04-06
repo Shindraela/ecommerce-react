@@ -1,14 +1,14 @@
 import {
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Image,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
-import { useContext } from 'react';
-import CartContext from '../contexts/CartContext';
+	Button,
+	Center,
+	Flex,
+	Heading,
+	Image,
+	Stack,
+	Text,
+} from '@chakra-ui/react'
+import { useContext } from 'react'
+import CartContext from '../contexts/CartContext'
 
 export const CartCard = ({ product }) => {
 	const { add, decrease } = useContext(CartContext)
@@ -16,51 +16,45 @@ export const CartCard = ({ product }) => {
 	return (
 		<Center p={4} key={product.id}>
 			<Flex flex={1}>
-				<Image
-					objectFit='contain'
-					boxSize='100%'
-					src={product.image}
-				/>
+				<Image objectFit='contain' boxSize='100%' src={product.image} />
 			</Flex>
 
 			<Stack
 				flex={1}
-				flexDirection='column'
-				justifyContent='flex-start'
-				alignItems='flex-start'
+				direction='column'
+				justify='flex-start'
+				align='flex-start'
 				p={1}
 				pt={2}
 				pl={2}
 			>
 				<Stack
 					flex={1}
-					flexDirection='column'
-					justifyContent='flex-start'
-					alignItems='flex-start'
+					direction='column'
+					justify='flex-start'
+					align='flex-start'
 					p={1}
 					pt={2}
 				>
-					<Heading fontSize={'lg'} fontFamily={'body'}>
+					<Heading fontSize='lg' fontFamily='body'>
 						{product.title}
 					</Heading>
 
-					<Text textAlign={'center'}>
-						{product.cost}€
-					</Text>
+					<Text textAlign='center'>{product.cost}€</Text>
 				</Stack>
 
 				<Stack
-					width={'100%'}
-					mt={'2rem'}
-					direction={'row'}
+					width='100%'
+					mt='2rem'
+					direction='row'
 					padding={2}
-					justifyContent={'space-between'}
-					alignItems={'center'}
+					justify='space-between'
+					align='center'
 				>
 					<Button
 						flex={1}
-						fontSize={'sm'}
-						rounded={'full'}
+						fontSize='sm'
+						rounded='full'
 						_focus={{
 							bg: 'gray.200',
 						}}
@@ -73,10 +67,10 @@ export const CartCard = ({ product }) => {
 
 					<Button
 						flex={1}
-						fontSize={'sm'}
-						rounded={'full'}
-						bg={'blue.400'}
-						color={'white'}
+						fontSize='sm'
+						rounded='full'
+						bg='blue.400'
+						color='white'
 						boxShadow={
 							'0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
 						}

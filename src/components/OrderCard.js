@@ -1,5 +1,5 @@
-import { Flex, Stack, Heading, Text } from '@chakra-ui/react';
-import { RepeatIcon, CheckCircleIcon } from '@chakra-ui/icons';
+import { Flex, Stack, Heading, Text } from '@chakra-ui/react'
+import { RepeatIcon, CheckCircleIcon } from '@chakra-ui/icons'
 
 export const OrderCard = ({ order }) => {
 	return (
@@ -32,9 +32,7 @@ export const OrderCard = ({ order }) => {
 						{order.customer}
 					</Heading>
 
-					<Text textAlign='center'>
-						{order.order_date}
-					</Text>
+					<Text textAlign='center'>{order.order_date}</Text>
 				</Stack>
 
 				<Stack
@@ -45,7 +43,11 @@ export const OrderCard = ({ order }) => {
 					align='center'
 				>
 					<Text>{order.delivery_status}</Text>
-					{order.delivery_status === 'shipped' ? <CheckCircleIcon color='green' /> : order.delivery_status === 'delivered' ? <RepeatIcon /> : null}
+					{order.delivery_status === 'shipped' ? (
+						<CheckCircleIcon color='green' />
+					) : order.delivery_status === 'delivered' ? (
+						<RepeatIcon />
+					) : null}
 				</Stack>
 			</Stack>
 
@@ -60,9 +62,7 @@ export const OrderCard = ({ order }) => {
 					{order.cost}€
 				</Heading>
 
-				<Text textAlign='center'>
-					{order.reference}
-				</Text>
+				<Text textAlign='center'>{order.reference}</Text>
 			</Stack>
 		</Flex>
 	)

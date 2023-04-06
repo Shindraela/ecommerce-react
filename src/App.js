@@ -1,17 +1,17 @@
-import { Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router'
 import { ChakraProvider } from '@chakra-ui/react'
-import { Main } from './layouts/Main';
-import { Cart } from './layouts/Cart';
-import { ProductsList } from './layouts/ProductsList';
-import { Product } from './layouts/Product';
-import { Auth } from './layouts/Auth';
-import { Login } from './layouts/Login';
-import { Signup } from './layouts/Signup';
-import { UserProvider } from './contexts/UserContext';
-import { Profile } from './layouts/Profile';
+import { Main } from './layouts/Main'
+import { Cart } from './layouts/Cart'
+import { ProductsList } from './layouts/ProductsList'
+import { Product } from './layouts/Product'
+import { Auth } from './layouts/Auth'
+import { Login } from './layouts/Login'
+import { Signup } from './layouts/Signup'
+import { UserProvider } from './contexts/UserContext'
+import { Profile } from './layouts/Profile'
 
 function App() {
-  return (
+	return (
 		<ChakraProvider>
 			<UserProvider>
 				<Routes>
@@ -26,10 +26,10 @@ function App() {
 						<Route path='/cart' element={<Cart />} />
 						<Route path='/profile' element={<Profile />} />
 					</Route>
-					</Routes>
+				</Routes>
 			</UserProvider>
-    </ChakraProvider>
-  );
+		</ChakraProvider>
+	)
 }
 
 export default App

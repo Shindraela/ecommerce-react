@@ -5,10 +5,7 @@ const URLS = {
 	SIGNUP: '/signup',
 	LOGIN: '/login',
 	CART: '/cart',
-	PRODUCTS: '/products'
+	PRODUCTS: '/products',
 }
 
-export {
-	REACT_APP_API_BASE_URL,
-	URLS,
-}
+export { REACT_APP_API_BASE_URL, URLS }

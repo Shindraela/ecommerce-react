@@ -1,8 +1,20 @@
-import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button, useToast } from '@chakra-ui/react';
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import CartContext from '../contexts/CartContext';
-import { URLS } from '../constants';
+import {
+	Card,
+	CardBody,
+	Image,
+	Stack,
+	Heading,
+	Text,
+	Divider,
+	CardFooter,
+	ButtonGroup,
+	Button,
+	useToast,
+} from '@chakra-ui/react'
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import CartContext from '../contexts/CartContext'
+import { URLS } from '../constants'
 
 export const ProductCard = ({ product }) => {
 	const { add } = useContext(CartContext)
@@ -12,7 +24,7 @@ export const ProductCard = ({ product }) => {
 		add(product.id)
 		toast({
 			title: 'Product added.',
-			description: "Product was added to your cart!",
+			description: 'Product was added to your cart!',
 			status: 'success',
 			duration: 3000,
 			isClosable: true,
@@ -31,13 +43,11 @@ export const ProductCard = ({ product }) => {
 				/>
 				<Stack mt='6' spacing='3'>
 					<Heading size='md'>
-						<Link to={`${URLS.PRODUCTS}/${product.id}`} relative="path">
+						<Link to={`${URLS.PRODUCTS}/${product.id}`} relative='path'>
 							{product.title}
 						</Link>
 					</Heading>
-					<Text>
-						{product.description}
-					</Text>
+					<Text>{product.description}</Text>
 					<Text color='blue.600' fontSize='2xl'>
 						{product.price}€
 					</Text>
@@ -55,4 +65,4 @@ export const ProductCard = ({ product }) => {
 			</CardFooter>
 		</Card>
 	)
-};
+}

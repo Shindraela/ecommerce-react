@@ -1,11 +1,11 @@
-import { createContext, useState, useEffect } from 'react';
-import { REACT_APP_API_BASE_URL } from '../constants';
+import { createContext, useState, useEffect } from 'react'
+import { REACT_APP_API_BASE_URL } from '../constants'
 
-const ProductsContext = createContext();
+const ProductsContext = createContext()
 
 export const ProductsProvider = ({ children }) => {
-	const [ allProducts, setAllProducts ] = useState([])
-  const [ categories, setCategories ] = useState([])
+	const [allProducts, setAllProducts] = useState([])
+	const [categories, setCategories] = useState([])
 
 	useEffect(() => {
 		const fetchProducts = async () => {
@@ -17,8 +17,7 @@ export const ProductsProvider = ({ children }) => {
 
 				setAllProducts([...list])
 				setCategories([...allCats])
-			}
-			catch(error) {
+			} catch (error) {
 				console.error(error)
 			}
 		}
@@ -26,11 +25,13 @@ export const ProductsProvider = ({ children }) => {
 		fetchProducts()
 	}, [])
 
-  return (
-    <ProductsContext.Provider value={{ allProducts, setAllProducts, categories }}>
-      {children}
-    </ProductsContext.Provider>
-  )
+	return (
+		<ProductsContext.Provider
+			value={{ allProducts, setAllProducts, categories }}
+		>
+			{children}
+		</ProductsContext.Provider>
+	)
 }
 
-export default ProductsContext;
+export default ProductsContext
