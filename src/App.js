@@ -8,6 +8,7 @@ import { Auth } from './layouts/Auth';
 import { Login } from './layouts/Login';
 import { Signup } from './layouts/Signup';
 import { UserProvider } from './contexts/UserContext';
+import { Profile } from './layouts/Profile';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
 						<Route index element={<ProductsList />} />
 						<Route path='/products/:id' element={<Product />} />
 						<Route path='/cart' element={<Cart />} />
+						<Route path='/profile' element={<Profile />} />
 					</Route>
 					</Routes>
 			</UserProvider>

@@ -1,0 +1,45 @@
+{
+	"id": "6409ffa249b4f3a92be45b94",
+	"name": "Sasani",
+	"email": "sasani@mail.com",
+	"address": "8929 Valwood Pkwy",
+	"country": "United States",
+	"city": "Billings",
+	"postcode": "63104",
+	"birth_date": "1992-03-08",
+	"phone_number": "(272) 790-0888",
+	"orders": [
+		{
+			"id": "392187723",
+			"reference": "392187723",
+			"customer": "Victor Hugo",
+			"order_date": "07/05/2022",
+			"delivery_status": "shipped",
+			"cost": "66.49"
+		},
+		{
+			"id": "408185814",
+			"reference": "408185814",
+			"customer": "KITCHENCOOK",
+			"order_date": "06/12/2022",
+			"delivery_status": "delivered",
+			"cost": "106.49"
+		},
+		{
+			"id": "408315764",
+			"reference": "408315764",
+			"customer": "BLACKFIELD",
+			"order_date": "07/12/2022",
+			"delivery_status": "delivered",
+			"cost": "36.79"
+		},
+		{
+			"id": "413147695",
+			"reference": "413147695",
+			"customer": "MOULINEX",
+			"order_date": "16/02/2023",
+			"delivery_status": "delivered",
+			"cost": "156.79"
+		}
+	]
+}
