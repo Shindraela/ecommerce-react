@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
 	const [token, setToken] = useState(null)
 	const [currentUser, setCurrentUser] = useState(null)
 	const nav = useNavigate()
+	const storage = new handleStorage()
 
 	const createUser = async body => {
 		try {
@@ -43,7 +44,6 @@ export const UserProvider = ({ children }) => {
 			if (json.statusCode === 401) {
 				return json
 			} else {
-				const storage = new handleStorage()
 				storage.add('token', json)
 				fetchProfile(json)
 			}
@@ -98,7 +98,6 @@ export const UserProvider = ({ children }) => {
 	}
 
 	const getToken = () => {
-		const storage = new handleStorage()
 		const token = storage.get('token')
 
 		if (!token) {
@@ -111,7 +110,6 @@ export const UserProvider = ({ children }) => {
 	useEffect(() => {
 		const checkLoggedIn = async () => {
 			let token = getToken()
-			const storage = new handleStorage()
 
 			if (token !== null) {
 				// call refresh token for setting new access token
@@ -155,6 +153,7 @@ export const UserProvider = ({ children }) => {
 				currentUser,
 				setCurrentUser,
 				logout,
+				storage,
 			}}
 		>
 			{children}

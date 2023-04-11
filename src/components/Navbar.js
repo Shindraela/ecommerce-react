@@ -16,8 +16,9 @@ import {
 	Badge,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
-import { Link } from 'react-router-dom'
 import { useContext } from 'react'
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import CartContext from '../contexts/CartContext'
 import { SearchBar } from './SearchBar'
@@ -38,9 +39,17 @@ const Links = [
 
 export const Navbar = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
-	const { getToken, currentUser, logout } = useContext(UserContext)
+	const { getToken, setToken, currentUser, setCurrentUser, storage } = useContext(UserContext)
 	const { getCounter } = useContext(CartContext)
 	const count = getCounter()
+	const nav = useNavigate()
+
+	const logout = () => {
+		storage.remove('token')
+		setToken(null)
+		setCurrentUser(null)
+		nav(URLS.HOMEPAGE)
+	}
 
 	return (
 		<Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
