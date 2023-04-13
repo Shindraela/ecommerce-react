@@ -58,7 +58,6 @@ export const PaymentForm = () => {
 					rounded='lg'
 					shadow='1px 1px 3px rgba(0,0,0,0.3)'
 					maxWidth={800}
-					direction={{ base: 'column', md: 'row' }}
 					p={4}
 					m={6}
 					as='form'

@@ -100,7 +100,7 @@ export const Login = () => {
 									New? <Link to={URLS.SIGNUP}>Sign Up</Link>
 								</Text>
 
-								<Link>Forgot password?</Link>
+								<Link to={URLS.HOMEPAGE}>Go Home</Link>
 							</Stack>
 
 							<Button

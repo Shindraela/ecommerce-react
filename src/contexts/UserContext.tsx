@@ -2,16 +2,19 @@ import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { REACT_APP_API_BASE_URL, URLS } from '../constants'
 import { handleStorage } from '../handleStorage'
+import ChildrenProps from '../types/children'
+import IToken from '../types/token'
+import IUser, { UserContextType } from '../types/user'
 
-const UserContext = createContext()
+const UserContext = createContext<UserContextType>({} as UserContextType)
 
-export const UserProvider = ({ children }) => {
-	const [token, setToken] = useState(null)
-	const [currentUser, setCurrentUser] = useState(null)
+export const UserProvider = ({ children }: ChildrenProps) => {
+	const [token, setToken] = useState<IToken | null>(null)
+	const [currentUser, setCurrentUser] = useState<IUser | null>(null)
 	const nav = useNavigate()
 	const storage = new handleStorage()
 
-	const createUser = async body => {
+	const createUser = async (body: any) => {
 		try {
 			const response = await fetch(`${REACT_APP_API_BASE_URL}/users/`, {
 				method: 'POST',
@@ -29,7 +32,7 @@ export const UserProvider = ({ children }) => {
 		}
 	}
 
-	const fetchToken = async body => {
+	const fetchToken = async (body: any) => {
 		try {
 			const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/login`, {
 				method: 'POST',
@@ -52,7 +55,7 @@ export const UserProvider = ({ children }) => {
 		}
 	}
 
-	const refreshToken = async refreshToken => {
+	const refreshToken = async (refreshToken: any) => {
 		const body = {
 			refreshToken: refreshToken,
 		}
@@ -74,7 +77,7 @@ export const UserProvider = ({ children }) => {
 		}
 	}
 
-	const fetchProfile = async token => {
+	const fetchProfile = async (token: any) => {
 		if (token == null) return
 
 		try {

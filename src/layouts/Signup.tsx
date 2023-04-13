@@ -18,6 +18,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import { URLS } from '../constants'
+import IMessage from '../types/message'
 
 export const Signup = () => {
 	const { createUser } = useContext(UserContext)
@@ -26,11 +27,11 @@ export const Signup = () => {
 	const [password, setPassword] = useState('')
 	const [avatar, setAvatar] = useState('')
 	const [error, setError] = useState(false)
-	const [errorMessages, setErrorMessages] = useState([])
+	const [errorMessages, setErrorMessages] = useState<IMessage[]>([])
 	const [showPassword, setShowPassword] = useState(false)
 	const nav = useNavigate()
 
-	const onSubmit = async e => {
+	const onSubmit = async (e: { preventDefault: () => void }) => {
 		e.preventDefault()
 		const body = { name, email, password, avatar }
 

@@ -19,13 +19,24 @@ import {
 import CartContext from '../contexts/CartContext'
 import { REACT_APP_API_BASE_URL } from '../constants'
 import { ProductCarousel } from '../components/ProductCarousel'
+import IProduct from '../types/product'
 
 export const Product = () => {
 	const toast = useToast()
 	const params = useParams()
 	const nav = useNavigate()
 	const { add } = useContext(CartContext)
-	const [product, setProduct] = useState(undefined)
+	const [product, setProduct] = useState<IProduct>({
+		id: 1,
+		title: 'random',
+		price: 2,
+		description: 'random',
+		category: {
+			name: 'random',
+		},
+		quantity: 2,
+		images: [],
+	})
 
 	useEffect(() => {
 		const fetchProduct = async () => {

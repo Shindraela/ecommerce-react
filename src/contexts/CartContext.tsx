@@ -1,14 +1,16 @@
 import { createContext, useContext, useState } from 'react'
 import ProductsContext from './ProductsContext'
 import { REACT_APP_API_BASE_URL } from '../constants'
+import ChildrenProps from '../types/children'
+import ICart, { CartContextType } from '../types/cart'
 
-const CartContext = createContext()
+const CartContext = createContext<CartContextType>({} as CartContextType)
 
-export const CartProvider = ({ children }) => {
-	const [cart, setCart] = useState({})
+export const CartProvider = ({ children }: ChildrenProps) => {
+	const [cart, setCart] = useState<ICart>({})
 	const { allProducts } = useContext(ProductsContext)
 
-	const add = async productId => {
+	const add = async (productId: number) => {
 		if (cart[productId]) {
 			cart[productId].quantity += 1
 		} else {
@@ -24,7 +26,7 @@ export const CartProvider = ({ children }) => {
 		setCart({ ...cart })
 	}
 
-	const decrease = productId => {
+	const decrease = (productId: number) => {
 		if (!cart[productId]) {
 			return
 		}
