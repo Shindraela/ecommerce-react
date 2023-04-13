@@ -6,6 +6,7 @@ const URLS = {
 	LOGIN: '/login',
 	CART: '/cart',
 	PRODUCTS: '/products',
+	PROFILE: '/profile',
 }
 
 export { REACT_APP_API_BASE_URL, URLS }

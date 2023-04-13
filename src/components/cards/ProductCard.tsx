@@ -15,8 +15,13 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import CartContext from '../../contexts/CartContext'
 import { URLS } from '../../constants'
+import IProduct from '../../types/product'
 
-export const ProductCard = ({ product }) => {
+type productProps = {
+	product: IProduct
+}
+
+export const ProductCard = ({ product }: productProps) => {
 	const { add } = useContext(CartContext)
 	const toast = useToast()
 

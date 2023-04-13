@@ -30,7 +30,7 @@ export const Signup = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const nav = useNavigate()
 
-	const onSubmit = async e => {
+	const onSubmit = async (e: { preventDefault: () => void }) => {
 		e.preventDefault()
 		const body = { name, email, password, avatar }
 

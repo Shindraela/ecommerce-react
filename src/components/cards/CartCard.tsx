@@ -2,7 +2,7 @@ import { Button, Center, Flex, Heading, Image, Stack, Text } from '@chakra-ui/re
 import { useContext } from 'react'
 import CartContext from '../../contexts/CartContext'
 
-export const CartCard = ({ product }) => {
+export const CartCard = ({ product }: any) => {
 	const { add, decrease } = useContext(CartContext)
 
 	return (

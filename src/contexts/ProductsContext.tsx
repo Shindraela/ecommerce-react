@@ -1,11 +1,14 @@
 import { createContext, useState, useEffect } from 'react'
 import { REACT_APP_API_BASE_URL } from '../constants'
+import ChildrenProps from '../types/children'
+import IProduct, { ProductsContextType } from '../types/product'
+import ICategory from '../types/category'
 
-const ProductsContext = createContext()
+const ProductsContext = createContext<ProductsContextType>({} as ProductsContextType)
 
-export const ProductsProvider = ({ children }) => {
-	const [allProducts, setAllProducts] = useState([])
-	const [categories, setCategories] = useState([])
+export const ProductsProvider = ({ children }: ChildrenProps) => {
+	const [allProducts, setAllProducts] = useState<IProduct[]>([])
+	const [categories, setCategories] = useState<ICategory[]>([])
 
 	useEffect(() => {
 		const fetchProducts = async () => {
