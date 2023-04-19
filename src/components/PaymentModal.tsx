@@ -11,8 +11,9 @@ import {
 	ModalFooter,
 } from '@chakra-ui/react'
 import { URLS } from '../constants'
+import { ModalType } from '../types/modal'
 
-export const PaymentModal = ({ modalIsOpen, setModalOpen }) => {
+export const PaymentModal = ({ modalIsOpen, setModalOpen }: ModalType) => {
 	const nav = useNavigate()
 
 	return (

@@ -48,7 +48,7 @@ export const CartProvider = ({ children }: ChildrenProps) => {
 
 	const getTotal = () => {
 		return Object.keys(cart).reduce((acc, id) => {
-			return acc + allProducts[id].price * cart[id].quantity
+			return acc + allProducts[id as any].price * cart[id].quantity
 		}, 0)
 	}
 

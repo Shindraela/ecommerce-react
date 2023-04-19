@@ -14,7 +14,7 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 	const nav = useNavigate()
 	const storage = new handleStorage()
 
-	const createUser = async (body: any) => {
+	const createUser = async (body: object) => {
 		try {
 			const response = await fetch(`${REACT_APP_API_BASE_URL}/users/`, {
 				method: 'POST',
@@ -32,7 +32,7 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 		}
 	}
 
-	const fetchToken = async (body: any) => {
+	const fetchToken = async (body: object) => {
 		try {
 			const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/login`, {
 				method: 'POST',
@@ -55,7 +55,7 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 		}
 	}
 
-	const refreshToken = async (refreshToken: any) => {
+	const refreshToken = async (refreshToken: string) => {
 		const body = {
 			refreshToken: refreshToken,
 		}
@@ -77,7 +77,7 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 		}
 	}
 
-	const fetchProfile = async (token: any) => {
+	const fetchProfile = async (token: IToken) => {
 		if (token == null) return
 
 		try {

@@ -6,6 +6,7 @@ import { Form2 } from './Form2'
 import { Form3 } from './Form3'
 import { Form4 } from './Form4'
 import { PaymentModal } from '../PaymentModal'
+import { PaymentFormType } from '../../types/form'
 
 export const PaymentForm = () => {
 	const [step, setStep] = useState(1)
@@ -38,7 +39,7 @@ export const PaymentForm = () => {
 		},
 	})
 
-	const onChange = (formName, fieldName, value) => {
+	const onChange = ({ formName, fieldName, value }: PaymentFormType) => {
 		setFormData(oldFormData => ({
 			...oldFormData,
 			[formName]: { ...oldFormData[formName], [fieldName]: value },

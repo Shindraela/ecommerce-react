@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Box, IconButton, useBreakpointValue } from '@chakra-ui/react'
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 import Slider from 'react-slick'
+import IProduct from '../types/product'
 
 // Settings for the slider
 const settings = {
@@ -14,7 +15,11 @@ const settings = {
 	slidesToScroll: 1,
 }
 
-export const ProductCarousel = ({ images }) => {
+type ImagesProps = {
+	images: IProduct['images']
+}
+
+export const ProductCarousel = ({ images }: ImagesProps) => {
 	const [slider, setSlider] = useState(null)
 
 	// Breakpoints which changes the position of

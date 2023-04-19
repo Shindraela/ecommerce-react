@@ -1,3 +1,12 @@
+export type IOrder = {
+	id: string
+	reference: string
+	customer: string
+	order_date: string
+	delivery_status: string
+	cost: string
+}
+
 export default interface IProfile {
 	id: string
 	name: string
@@ -8,12 +17,5 @@ export default interface IProfile {
 	postcode: string
 	birth_date: string
 	phone_number: string
-	orders: {
-		id: string
-		reference: string
-		customer: string
-		order_date: string
-		delivery_status: string
-		cost: string
-	}[]
+	orders: IOrder[]
 }

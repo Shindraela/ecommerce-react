@@ -1,6 +1,12 @@
 import { Heading, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
+import IForm3 from '../../types/form'
 
-export const Form3 = ({ formData, onChange }) => {
+type Form3Props = {
+	formData: IForm3
+	onChange: (e: React.FormEvent<HTMLInputElement>) => void
+}
+
+export const Form3 = ({ formData, onChange }: Form3Props) => {
 	return (
 		<Flex direction='column' p={6} pb={2}>
 			<Heading w='100%' size='md' fontWeight='bold' mb='2%'>

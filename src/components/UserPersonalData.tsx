@@ -1,4 +1,10 @@
-export const UserPersonalData = ({ data }) => {
+import IProfile from '../types/profile'
+
+type DataProps = {
+	data: IProfile
+}
+
+export const UserPersonalData = ({ data }: DataProps) => {
 	return (
 		<ul>
 			<li>Name : {data.name}</li>

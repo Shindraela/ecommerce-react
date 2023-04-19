@@ -78,7 +78,7 @@ export const Navbar = () => {
 				</HStack>
 
 				<Flex align='center'>
-					{getToken && currentUser ? (
+					{getToken() && currentUser ? (
 						<Menu>
 							<SearchBar />
 							<MenuButton as={Button} rounded='full' variant='link' cursor='pointer' minW={0}>

@@ -1,9 +1,9 @@
 import { Flex, Stack, Heading, Text } from '@chakra-ui/react'
 import { RepeatIcon, CheckCircleIcon } from '@chakra-ui/icons'
-import IProfile from '../../types/profile'
+import { IOrder } from '../../types/profile'
 
 type IOrderProps = {
-	order: IProfile['orders']
+	order: IOrder
 }
 
 export const OrderCard = ({ order }: IOrderProps) => {
