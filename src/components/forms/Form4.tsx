@@ -1,7 +1,12 @@
 import { Text, Box, Heading, Flex, Center, Stack } from '@chakra-ui/react'
 import { maskedNumber } from '../../utils'
+import { AllFormsType } from '../../types/form'
 
-export const Form4 = ({ formData }) => {
+type Form4Props = {
+	formData: AllFormsType
+}
+
+export const Form4 = ({ formData }: Form4Props) => {
 	return (
 		<Flex direction='column' p={6} pb={2}>
 			<Heading w='100%' size='md' fontWeight='bold' mb='2%'>
