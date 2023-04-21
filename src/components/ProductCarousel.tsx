@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Box, IconButton, useBreakpointValue } from '@chakra-ui/react'
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 import Slider from 'react-slick'
@@ -20,7 +20,7 @@ type ImagesProps = {
 }
 
 export const ProductCarousel = ({ images }: ImagesProps) => {
-	const [slider, setSlider] = useState(null)
+	const [slider, setSlider] = useState<Slider | null>(null)
 
 	// Breakpoints which changes the position of
 	// the buttons as the screen size changes
