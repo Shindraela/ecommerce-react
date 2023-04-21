@@ -20,6 +20,6 @@ export type UserContextType = {
 	storage: handleStorage
 	createUser: (body: any) => Promise<any>
 	currentUser: IUser | null
-	setCurrentUser: (currentUser: IUser) => void
+	setCurrentUser: (currentUser: IUser | null) => void
 	logout: () => void
 }
