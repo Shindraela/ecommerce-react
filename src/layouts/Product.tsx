@@ -26,17 +26,7 @@ export const Product = () => {
 	const params = useParams()
 	const nav = useNavigate()
 	const { add } = useContext(CartContext)
-	const [product, setProduct] = useState<IProduct>({
-		id: 1,
-		title: 'random',
-		price: 2,
-		description: 'random',
-		category: {
-			name: 'random',
-		},
-		quantity: 2,
-		images: [],
-	})
+	const [product, setProduct] = useState<IProduct | null>(null)
 
 	useEffect(() => {
 		const fetchProduct = async () => {
@@ -54,7 +44,7 @@ export const Product = () => {
 	}, [params.id])
 
 	const addProduct = () => {
-		add(product.id)
+		if (product) add(product.id)
 
 		toast({
 			title: 'Product added.',
@@ -65,7 +55,7 @@ export const Product = () => {
 		})
 	}
 
-	if (product === undefined) {
+	if (product === null) {
 		return (
 			<Box position='relative' h='100vh'>
 				<AbsoluteCenter axis='both'>

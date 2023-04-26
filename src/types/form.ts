@@ -3,29 +3,28 @@ export type PaymentFormType = {
 }
 
 export type IForm1 = {
-	form1: {
-		firstName: string
-		lastName: string
-		phone: string
-	}
+	firstName: string
+	lastName: string
+	phone: string
 }
 
 export type IForm2 = {
-	form2: {
-		fullName: string
-		address: string
-		selectedCountry: string
-		city: string
-	}
+	fullName: string
+	address: string
+	selectedCountry: string
+	city: string
 }
 
 export type IForm3 = {
-	form3: {
-		cardName: string
-		cardNumber: string
-		expiryDate: string
-		cvv: string
-	}
+	cardName: string
+	cardNumber: string
+	expiryDate: string
+	cvv: string
 }
 
-export type AllFormsType = IForm1 & IForm2 & IForm3
+export type AllFormsType = {
+	[key: string]: any
+	form1: IForm1
+	form2: IForm2
+	form3: IForm3
+}

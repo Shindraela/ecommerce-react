@@ -12,10 +12,6 @@ export default interface IProduct {
 	images: string[]
 }
 
-export type ProductImages = {
-	images: IProduct['images']
-}
-
 export type ProductsContextType = {
 	allProducts: IProduct[]
 	categories: ICategory[]

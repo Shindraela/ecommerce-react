@@ -1,11 +1,11 @@
-type cartProductType = {
+type CartType = {
 	productId: number
 	quantity: number
 	price?: number
 }
 
 export default interface ICart {
-	[key: string]: cartProductType
+	[key: string]: CartType
 }
 
 export type CartContextType = {

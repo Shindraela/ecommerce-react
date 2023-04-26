@@ -22,25 +22,23 @@ export const SearchBar = () => {
 		setResults([])
 	}
 
+	const searchStyle: React.CSSProperties = {
+		position: 'relative',
+		top: '4rem',
+		zIndex: 1,
+		backgroundColor: 'white',
+		border: '1px solid grey',
+		borderRadius: '0.5rem',
+		padding: '1rem',
+	}
+
 	return (
 		<Flex align='center' direction='column' style={{ position: 'relative' }}>
 			<Box p={4}>
 				<Input placeholder='Search' value={query} onChange={e => onSearch(e)} />
 
 				{query.length > 0 ? (
-					<Stack
-						as='nav'
-						spacing={4}
-						style={{
-							position: 'relative',
-							top: '4rem',
-							zIndex: 1,
-							backgroundColor: 'white',
-							border: '1px solid grey',
-							borderRadius: '0.5rem',
-							padding: '1rem',
-						}}
-					>
+					<Stack as='nav' spacing={4} style={searchStyle}>
 						{results.map(product => (
 							<Link
 								key={product.id}

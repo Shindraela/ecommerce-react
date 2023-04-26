@@ -25,7 +25,7 @@ export const Login = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [error, setError] = useState(false)
 
-	const onSubmit = async (e: { preventDefault: () => void }) => {
+	const onSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
 		const body = { email, password }
 
