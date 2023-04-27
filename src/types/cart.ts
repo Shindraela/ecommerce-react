@@ -1,7 +1,15 @@
 type CartType = {
 	productId: number
 	quantity: number
-	price?: number
+	price: number
+}
+
+export type CartProductType = {
+	id: number
+	title: string
+	image: string
+	quantity: number
+	cost: number
 }
 
 export default interface ICart {
@@ -11,6 +19,8 @@ export default interface ICart {
 export type CartContextType = {
 	cart: ICart
 	setCart: (cart: ICart) => void
+	cartProducts: CartProductType[]
+	setCartProducts: (cartProducts: CartProductType[]) => void
 	add: (productId: number) => Promise<void>
 	decrease: (productId: number) => void
 	getCounter: () => number
