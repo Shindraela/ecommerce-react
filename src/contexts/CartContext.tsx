@@ -2,13 +2,11 @@ import { createContext, useState } from 'react'
 import { REACT_APP_API_BASE_URL } from '../constants'
 import ChildrenProps from '../types/children'
 import ICart, { CartContextType } from '../types/cart'
-import { CartProductType } from '../types/cart'
 
 const CartContext = createContext<CartContextType>({} as CartContextType)
 
 export const CartProvider = ({ children }: ChildrenProps) => {
 	const [cart, setCart] = useState<ICart>({})
-	const [cartProducts, setCartProducts] = useState<CartProductType[]>([])
 
 	const add = async (productId: number) => {
 		if (cart[productId]) {
@@ -58,8 +56,6 @@ export const CartProvider = ({ children }: ChildrenProps) => {
 			value={{
 				cart,
 				setCart,
-				cartProducts,
-				setCartProducts,
 				getCounter,
 				getTotal,
 				add,
