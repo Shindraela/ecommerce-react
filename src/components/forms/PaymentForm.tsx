@@ -39,7 +39,7 @@ export const PaymentForm = () => {
 		},
 	})
 
-	const onChange = (formName: string, fieldName: string, value: string) => {
+	const onChange = (formName: 'form1' | 'form2' | 'form3', fieldName: string, value: string) => {
 		setFormData((oldFormData: AllFormsType) => ({
 			...oldFormData,
 			[formName]: { ...oldFormData[formName], [fieldName]: value },

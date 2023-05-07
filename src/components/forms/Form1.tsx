@@ -1,8 +1,8 @@
 import { Heading, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
-import { AllFormsType } from '../../types/form'
+import { IForm1 } from '../../types/form'
 
 type Form1Props = {
-	formData: AllFormsType['form1']
+	formData: IForm1
 	onChange: (fieldName: string, value: string) => void
 }
 

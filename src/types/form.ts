@@ -23,7 +23,6 @@ export type IForm3 = {
 }
 
 export type AllFormsType = {
-	[key: string]: any
 	form1: IForm1
 	form2: IForm2
 	form3: IForm3
