@@ -1,7 +1,3 @@
-export type PaymentFormType = {
-	[key: string]: any
-}
-
 export type IForm1 = {
 	firstName: string
 	lastName: string
