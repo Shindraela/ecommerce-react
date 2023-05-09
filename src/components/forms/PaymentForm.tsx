@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Box, Progress, Flex, ButtonGroup, Button } from '@chakra-ui/react'
 import CartContext from '../../contexts/CartContext'
 import { Form1 } from './Form1'
@@ -6,6 +6,7 @@ import { Form2 } from './Form2'
 import { Form3 } from './Form3'
 import { Form4 } from './Form4'
 import { PaymentModal } from '../PaymentModal'
+import { AllFormsType } from '../../types/form'
 
 export const PaymentForm = () => {
 	const [step, setStep] = useState(1)
@@ -18,7 +19,7 @@ export const PaymentForm = () => {
 		setProgress(step * 25)
 	}, [step])
 
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<AllFormsType>({
 		form1: {
 			firstName: '',
 			lastName: '',
@@ -38,8 +39,8 @@ export const PaymentForm = () => {
 		},
 	})
 
-	const onChange = (formName, fieldName, value) => {
-		setFormData(oldFormData => ({
+	const onChange = (formName: 'form1' | 'form2' | 'form3', fieldName: string, value: string) => {
+		setFormData((oldFormData: AllFormsType) => ({
 			...oldFormData,
 			[formName]: { ...oldFormData[formName], [fieldName]: value },
 		}))
@@ -58,7 +59,6 @@ export const PaymentForm = () => {
 					rounded='lg'
 					shadow='1px 1px 3px rgba(0,0,0,0.3)'
 					maxWidth={800}
-					direction={{ base: 'column', md: 'row' }}
 					p={4}
 					m={6}
 					as='form'

@@ -9,7 +9,7 @@ export const ProductsList = () => {
 
 	return (
 		<>
-			<SimpleGrid columns={{ base: 2, md: 2, lg: 6 }} spacing={8} p={4} alignContent>
+			<SimpleGrid columns={{ base: 2, md: 2, lg: 6 }} spacing={8} p={4}>
 				{categories &&
 					categories.map(category => <Category key={category.id} category={category} />)}
 			</SimpleGrid>

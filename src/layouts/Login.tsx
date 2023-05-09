@@ -25,7 +25,7 @@ export const Login = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [error, setError] = useState(false)
 
-	const onSubmit = async e => {
+	const onSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
 		const body = { email, password }
 
@@ -100,7 +100,7 @@ export const Login = () => {
 									New? <Link to={URLS.SIGNUP}>Sign Up</Link>
 								</Text>
 
-								<Link>Forgot password?</Link>
+								<Link to={URLS.HOMEPAGE}>Go Home</Link>
 							</Stack>
 
 							<Button

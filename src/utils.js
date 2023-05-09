@@ -1,12 +1,14 @@
 const maskedNumber = number => number.slice(-4).padStart(number.length, '*')
 
 const formattedCart = (products, purchase) => {
+	const currentProduct = products.find(p => p.id === purchase.productId)
+
 	return {
 		id: purchase.productId,
-		image: products[purchase.productId].images[0],
-		title: products[purchase.productId].title,
+		image: currentProduct.images[0],
+		title: currentProduct.title,
 		quantity: purchase.quantity,
-		cost: purchase.quantity * products[purchase.productId].price,
+		cost: purchase.quantity * currentProduct.price,
 	}
 }
 

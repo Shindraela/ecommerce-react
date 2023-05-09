@@ -1,14 +1,14 @@
-import { createContext, useContext, useState } from 'react'
-import ProductsContext from './ProductsContext'
+import { createContext, useState } from 'react'
 import { REACT_APP_API_BASE_URL } from '../constants'
+import ChildrenProps from '../types/children'
+import ICart, { CartContextType } from '../types/cart'
 
-const CartContext = createContext()
+const CartContext = createContext<CartContextType>({} as CartContextType)
 
-export const CartProvider = ({ children }) => {
-	const [cart, setCart] = useState({})
-	const { allProducts } = useContext(ProductsContext)
+export const CartProvider = ({ children }: ChildrenProps) => {
+	const [cart, setCart] = useState<ICart>({})
 
-	const add = async productId => {
+	const add = async (productId: number) => {
 		if (cart[productId]) {
 			cart[productId].quantity += 1
 		} else {
@@ -18,13 +18,14 @@ export const CartProvider = ({ children }) => {
 			cart[productId] = {
 				productId: json.id,
 				quantity: 1,
+				price: json.price,
 			}
 		}
 
 		setCart({ ...cart })
 	}
 
-	const decrease = productId => {
+	const decrease = (productId: number) => {
 		if (!cart[productId]) {
 			return
 		}
@@ -45,13 +46,22 @@ export const CartProvider = ({ children }) => {
 	}
 
 	const getTotal = () => {
-		return Object.keys(cart).reduce((acc, id) => {
-			return acc + allProducts[id].price * cart[id].quantity
+		return Object.entries(cart).reduce<number>((acc, [productId, product]) => {
+			return acc + product.price * product.quantity
 		}, 0)
 	}
 
 	return (
-		<CartContext.Provider value={{ cart, setCart, getCounter, getTotal, add, decrease }}>
+		<CartContext.Provider
+			value={{
+				cart,
+				setCart,
+				getCounter,
+				getTotal,
+				add,
+				decrease,
+			}}
+		>
 			{children}
 		</CartContext.Provider>
 	)

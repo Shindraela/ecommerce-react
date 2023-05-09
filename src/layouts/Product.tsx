@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import {
 	Box,
@@ -19,13 +19,14 @@ import {
 import CartContext from '../contexts/CartContext'
 import { REACT_APP_API_BASE_URL } from '../constants'
 import { ProductCarousel } from '../components/ProductCarousel'
+import IProduct from '../types/product'
 
 export const Product = () => {
 	const toast = useToast()
 	const params = useParams()
 	const nav = useNavigate()
 	const { add } = useContext(CartContext)
-	const [product, setProduct] = useState(undefined)
+	const [product, setProduct] = useState<IProduct | null>(null)
 
 	useEffect(() => {
 		const fetchProduct = async () => {
@@ -43,7 +44,7 @@ export const Product = () => {
 	}, [params.id])
 
 	const addProduct = () => {
-		add(product.id)
+		if (product) add(product.id)
 
 		toast({
 			title: 'Product added.',
@@ -54,7 +55,7 @@ export const Product = () => {
 		})
 	}
 
-	if (product === undefined) {
+	if (product === null) {
 		return (
 			<Box position='relative' h='100vh'>
 				<AbsoluteCenter axis='both'>
