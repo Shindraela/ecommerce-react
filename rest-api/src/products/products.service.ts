@@ -16,4 +16,9 @@ export class ProductsService {
     const product = await this.productModel.findById(id).exec();
     return product;
   }
+
+  async findQuery(query): Promise<Product[]> {
+    const product = await this.productModel.find({ ...query });
+    return product;
+  }
 }

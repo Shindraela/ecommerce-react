@@ -24,4 +24,9 @@ export class ProductsController {
     if (!product) throw new NotFoundException('Id does not exist!');
     return res.status(HttpStatus.OK).json(product);
   }
+
+  @Get('findByFilter')
+  async findByFilter(@Query() query): Promise<Product[]> {
+    return this.productsService.findQuery({ ...query });
+  }
 }

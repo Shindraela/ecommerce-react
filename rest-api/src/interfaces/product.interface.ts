@@ -1,7 +1,8 @@
 import { Document } from 'mongoose';
+import { Category } from './category.interface';
 
 export interface Product extends Document {
-  readonly category: string;
+  readonly category: Category;
   readonly title: string;
   readonly description: string;
   readonly image: string;
