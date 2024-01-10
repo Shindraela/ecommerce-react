@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { REACT_APP_API_BASE_URL, URLS } from '../constants'
+import { API_BASE_URL, HTTP_HEADERS, URLS } from '../constants'
 import { handleStorage } from '../handleStorage'
 import ChildrenProps from '../types/children'
 import IToken from '../types/token'
@@ -16,11 +16,10 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 
 	const createUser = async (body: object) => {
 		try {
-			const response = await fetch(`${REACT_APP_API_BASE_URL}/users/`, {
+			const response = await fetch(`${API_BASE_URL}/users/`, {
 				method: 'POST',
 				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
+					...HTTP_HEADERS,
 				},
 				body: JSON.stringify(body),
 			})
@@ -34,11 +33,10 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 
 	const fetchToken = async (body: object) => {
 		try {
-			const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/login`, {
+			const response = await fetch(`${API_BASE_URL}/auth/login`, {
 				method: 'POST',
 				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
+					...HTTP_HEADERS,
 				},
 				body: JSON.stringify(body),
 			})
@@ -61,11 +59,10 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 		}
 
 		try {
-			const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/refresh-token`, {
+			const response = await fetch(`${API_BASE_URL}/auth/refresh-token`, {
 				method: 'POST',
 				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
+					...HTTP_HEADERS,
 				},
 				body: JSON.stringify(body),
 			})
@@ -81,11 +78,10 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 		if (token == null) return
 
 		try {
-			const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/profile`, {
+			const response = await fetch(`${API_BASE_URL}/auth/profile`, {
 				method: 'GET',
 				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
+					...HTTP_HEADERS,
 					Authorization: `Bearer ${token.access_token}`,
 				},
 			})
@@ -120,11 +116,10 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 				setToken(newToken)
 				storage.add('token', newToken)
 
-				const response = await fetch(`${REACT_APP_API_BASE_URL}/auth/profile`, {
+				const response = await fetch(`${API_BASE_URL}/auth/profile`, {
 					method: 'GET',
 					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'application/json',
+						...HTTP_HEADERS,
 						Authorization: `Bearer ${token.access_token}`,
 					},
 				})

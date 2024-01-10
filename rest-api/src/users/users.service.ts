@@ -6,9 +6,14 @@ import { User } from '../interfaces/user.interface';
 export class UsersService {
   constructor(@Inject('USER_MODEL') private readonly userModel: Model<User>) {}
 
-  async createUser(email: string, password: string): Promise<User> {
+  async createUser(
+    email: string,
+    username: string,
+    password: string,
+  ): Promise<User> {
     return this.userModel.create({
       email,
+      username,
       password,
     });
   }

@@ -1,18 +1,20 @@
 import * as bcrypt from 'bcrypt';
 import {
   Controller,
-  Request,
   Post,
   UseGuards,
   Body,
-  HttpCode,
-  HttpStatus,
   Get,
+  Res,
+  Request,
 } from '@nestjs/common';
-import { AuthGuard } from './auth.guard';
+import { JwtAuthGuard } from '../strategies/jwt/jwt-auth.guard';
+import { LocalAuthGuard } from '../strategies/local/local-auth.guard';
 import { AuthService } from './auth.service';
-import { User } from '../interfaces/user.interface';
 import { UsersService } from '../users/users.service';
+import { Response } from 'express';
+import { CreateUserDto } from 'src/dto/create-user.dto';
+import { User } from 'src/interfaces/user.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -23,28 +25,30 @@ export class AuthController {
 
   @Post('/signup')
   async createUser(
-    @Body('password') password: string,
+    @Body('username') username: string,
     @Body('email') email: string,
-  ): Promise<User> {
-    const saltOrRounds = 10;
+    @Body('password') password: string,
+  ): Promise<CreateUserDto> {
+    const saltOrRounds = 5;
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
-    const result = await this.usersService.createUser(email, hashedPassword);
+    const result = await this.usersService.createUser(
+      email,
+      username,
+      hashedPassword,
+    );
 
     return result;
   }
 
-  @HttpCode(HttpStatus.OK)
+  @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(
-    @Body('password') password: string,
-    @Body('email') email: string,
-  ) {
-    return this.authService.login(email, password);
+  async login(@Res() res: Response, @Request() req): Promise<string> {
+    return this.authService.login(res, req.user);
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req): User {
     return req.user;
   }
 }

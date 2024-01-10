@@ -17,7 +17,7 @@ import {
 	useToast,
 } from '@chakra-ui/react'
 import CartContext from '../contexts/CartContext'
-import { REACT_APP_API_BASE_URL } from '../constants'
+import { API_BASE_URL } from '../constants'
 import { ProductCarousel } from '../components/ProductCarousel'
 import IProduct from '../types/product'
 
@@ -31,7 +31,7 @@ export const Product = () => {
 	useEffect(() => {
 		const fetchProduct = async () => {
 			try {
-				const response = await fetch(`${REACT_APP_API_BASE_URL}/products/${params.id}`)
+				const response = await fetch(`${API_BASE_URL}/products/${params.id}`)
 				const json = await response.json()
 
 				setProduct(json)
