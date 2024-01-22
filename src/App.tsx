@@ -9,6 +9,7 @@ import { Login } from './layouts/Login'
 import { Signup } from './layouts/Signup'
 import { UserProvider } from './contexts/UserContext'
 import { Profile } from './layouts/Profile'
+import { AuthVerify } from './AuthVerify'
 
 function App() {
 	return (
@@ -28,6 +29,8 @@ function App() {
 					</Route>
 				</Routes>
 			</UserProvider>
+
+			<AuthVerify />
 		</ChakraProvider>
 	)
 }

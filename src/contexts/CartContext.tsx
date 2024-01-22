@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import { REACT_APP_API_BASE_URL } from '../constants'
+import { API_BASE_URL } from '../constants'
 import ChildrenProps from '../types/children'
 import ICart, { CartContextType } from '../types/cart'
 
@@ -12,7 +12,7 @@ export const CartProvider = ({ children }: ChildrenProps) => {
 		if (cart[productId]) {
 			cart[productId].quantity += 1
 		} else {
-			const response = await fetch(`${REACT_APP_API_BASE_URL}/products/${productId}`)
+			const response = await fetch(`${API_BASE_URL}/products/${productId}`)
 			const json = await response.json()
 
 			cart[productId] = {

@@ -1,4 +1,4 @@
-const REACT_APP_API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
 
 const URLS = {
 	HOMEPAGE: '/',
@@ -9,4 +9,9 @@ const URLS = {
 	PROFILE: '/profile',
 }
 
-export { REACT_APP_API_BASE_URL, URLS }
+const HTTP_HEADERS = {
+	Accept: 'application/json',
+	'Content-Type': 'application/json',
+}
+
+export { API_BASE_URL, URLS, HTTP_HEADERS }

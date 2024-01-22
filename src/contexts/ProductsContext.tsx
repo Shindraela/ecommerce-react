@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
-import { REACT_APP_API_BASE_URL } from '../constants'
+import { API_BASE_URL } from '../constants'
 import ChildrenProps from '../types/children'
 import IProduct, { ProductsContextType } from '../types/product'
 import ICategory from '../types/category'
@@ -13,8 +13,8 @@ export const ProductsProvider = ({ children }: ChildrenProps) => {
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const response = await fetch(`${REACT_APP_API_BASE_URL}/products`)
-				const fetchCat = await fetch(`${REACT_APP_API_BASE_URL}/categories`)
+				const response = await fetch(`${API_BASE_URL}/products`)
+				const fetchCat = await fetch(`${API_BASE_URL}/categories`)
 				const list = await response.json()
 				const allCats = await fetchCat.json()
 

@@ -21,10 +21,9 @@ import { URLS } from '../constants'
 
 export const Signup = () => {
 	const { createUser } = useContext(UserContext)
-	const [name, setName] = useState('')
+	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [avatar, setAvatar] = useState('')
 	const [error, setError] = useState(false)
 	const [errorMessages, setErrorMessages] = useState<String[]>([])
 	const [showPassword, setShowPassword] = useState(false)
@@ -32,7 +31,7 @@ export const Signup = () => {
 
 	const onSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
-		const body = { name, email, password, avatar }
+		const body = { username, email, password }
 
 		try {
 			await createUser(body).then(response => {
@@ -66,9 +65,9 @@ export const Signup = () => {
 					<Stack spacing={4}>
 						<HStack>
 							<Box>
-								<FormControl id='name' isRequired>
-									<FormLabel>First Name</FormLabel>
-									<Input type='text' value={name} onChange={e => setName(e.target.value)} />
+								<FormControl id='username' isRequired>
+									<FormLabel>Username</FormLabel>
+									<Input type='text' value={username} onChange={e => setUsername(e.target.value)} />
 								</FormControl>
 							</Box>
 
@@ -79,11 +78,6 @@ export const Signup = () => {
 								</FormControl>
 							</Box>
 						</HStack>
-
-						<FormControl id='avatar' isRequired>
-							<FormLabel>Avatar</FormLabel>
-							<Input type='text' value={avatar} onChange={e => setAvatar(e.target.value)} />
-						</FormControl>
 
 						<FormControl id='password' isRequired>
 							<FormLabel>Password</FormLabel>
