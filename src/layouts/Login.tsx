@@ -14,27 +14,28 @@ import {
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import { URLS } from '../constants'
 
 export const Login = () => {
+	const nav = useNavigate()
 	const { fetchToken } = useContext(UserContext)
-	const [email, setEmail] = useState('')
+	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [showPassword, setShowPassword] = useState(false)
 	const [error, setError] = useState(false)
 
 	const onSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
-		const body = { email, password }
+		const body = { username, password }
 
 		try {
 			await fetchToken(body).then(response => {
 				if (response && response.statusCode === 401) {
 					setError(true)
 				} else {
-					return
+					nav(URLS.HOMEPAGE)
 				}
 			})
 		} catch (error) {
@@ -59,9 +60,9 @@ export const Login = () => {
 
 				<Box rounded='lg' bg={useColorModeValue('white', 'gray.700')} boxShadow='lg' p={8}>
 					<Stack spacing={4}>
-						<FormControl id='email'>
-							<FormLabel>Email</FormLabel>
-							<Input type='email' value={email} onChange={e => setEmail(e.target.value)} />
+						<FormControl id='username'>
+							<FormLabel>Username</FormLabel>
+							<Input type='username' value={username} onChange={e => setUsername(e.target.value)} />
 						</FormControl>
 
 						<FormControl id='password'>
@@ -84,7 +85,7 @@ export const Login = () => {
 						</FormControl>
 						{error ? (
 							<Text fontSize='sm' color='red'>
-								Wrong combination email/password
+								Wrong combination username/password
 							</Text>
 						) : null}
 

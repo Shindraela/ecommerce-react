@@ -1,27 +1,27 @@
 import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { API_BASE_URL, HTTP_HEADERS, URLS } from '../constants'
-import { handleStorage } from '../handleStorage'
+import storageService from '../services/storage.service'
 import ChildrenProps from '../types/children'
 import IToken from '../types/token'
 import IUser, { UserContextType } from '../types/user'
+import instance from '../services/api'
 
 const UserContext = createContext<UserContextType>({} as UserContextType)
 
 export const UserProvider = ({ children }: ChildrenProps) => {
-	const [token, setToken] = useState<IToken | null>(null)
+	const [access_token, setAccessToken] = useState<IToken | undefined>(undefined)
+	const [refresh_token, setRefreshToken] = useState<IToken | undefined>(undefined)
+	const [hasToken, setHasToken] = useState(false)
 	const [currentUser, setCurrentUser] = useState<IUser | null>(null)
 	const nav = useNavigate()
-	const storage = new handleStorage()
 
-	const createUser = async (body: object) => {
+	const createUser = async (body: any) => {
 		try {
-			const response = await fetch(`${API_BASE_URL}/users/`, {
-				method: 'POST',
+			const response: any = await instance.post(`${API_BASE_URL}/auth/signup`, body, {
 				headers: {
 					...HTTP_HEADERS,
 				},
-				body: JSON.stringify(body),
 			})
 
 			const json = await response.json()
@@ -31,111 +31,73 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 		}
 	}
 
-	const fetchToken = async (body: object) => {
+	const fetchToken = async (body: any) => {
 		try {
-			const response = await fetch(`${API_BASE_URL}/auth/login`, {
-				method: 'POST',
+			const response: any = await instance
+				.post(`${API_BASE_URL}/auth/login`, body, {
+					headers: HTTP_HEADERS,
+				})
+				.then(({ data }) => {
+					fetchProfile(data.refresh_token)
+					storageService.add('access_token', data.access_token)
+					storageService.add('refresh_token', data.refresh_token)
+					return data
+				})
+				.catch(error => console.error(error))
+
+			setHasToken(true)
+
+			return response
+		} catch (error) {
+			return Promise.reject(error)
+		}
+	}
+
+	const fetchProfile = async (tokenValue: string) => {
+		try {
+			const { data } = await instance.get(`${API_BASE_URL}/auth/profile`, {
 				headers: {
 					...HTTP_HEADERS,
+					refresh_token: tokenValue,
+					Authorization: `Bearer ${tokenValue}`,
 				},
-				body: JSON.stringify(body),
 			})
 
-			const json = await response.json()
-			if (json.statusCode === 401) {
-				return json
-			} else {
-				storage.add('token', json)
-				fetchProfile(json)
-			}
+			setCurrentUser(data)
+			nav(URLS.HOMEPAGE)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	const refreshToken = async (refreshToken: string) => {
-		const body = {
-			refreshToken: refreshToken,
+	const getToken = (tokenName: string) => {
+		const currentToken = storageService.get(tokenName)
+
+		if (!currentToken) {
+			return 'tokenExpired'
 		}
 
-		try {
-			const response = await fetch(`${API_BASE_URL}/auth/refresh-token`, {
-				method: 'POST',
-				headers: {
-					...HTTP_HEADERS,
-				},
-				body: JSON.stringify(body),
-			})
-
-			const json = await response.json()
-			return json
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
-	const fetchProfile = async (token: IToken) => {
-		if (token == null) return
-
-		try {
-			const response = await fetch(`${API_BASE_URL}/auth/profile`, {
-				method: 'GET',
-				headers: {
-					...HTTP_HEADERS,
-					Authorization: `Bearer ${token.access_token}`,
-				},
-			})
-
-			const json = await response.json()
-			if (json) {
-				setCurrentUser(json)
-				nav(URLS.HOMEPAGE)
-			}
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
-	const getToken = () => {
-		const token = storage.get('token')
-
-		if (!token) {
-			return null
-		}
-
-		return JSON.parse(token)
+		return currentToken
 	}
 
 	useEffect(() => {
 		const checkLoggedIn = async () => {
-			let token = getToken()
+			setHasToken(false)
+			const access_token: string = storageService.get('access_token') as string
+			const refresh_token: string = storageService.get('refresh_token') as string
 
-			if (token !== null) {
-				// call refresh token for setting new access token
-				const newToken = await refreshToken(token.refresh_token)
-				setToken(newToken)
-				storage.add('token', newToken)
-
-				const response = await fetch(`${API_BASE_URL}/auth/profile`, {
-					method: 'GET',
-					headers: {
-						...HTTP_HEADERS,
-						Authorization: `Bearer ${token.access_token}`,
-					},
-				})
-
-				const json = await response.json()
-				setCurrentUser(json)
-			}
+			if (!access_token && !refresh_token) return
+			fetchProfile(access_token)
 		}
 
 		checkLoggedIn()
-	}, [])
+	}, [hasToken])
 
 	const logout = () => {
-		const storage = new handleStorage()
-		storage.remove('token')
-		setToken(null)
+		storageService.remove('access_token')
+		setAccessToken(undefined)
+		setRefreshToken(undefined)
+		setHasToken(false)
 		setCurrentUser(null)
 		nav(URLS.HOMEPAGE)
 	}
@@ -144,14 +106,17 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 		<UserContext.Provider
 			value={{
 				createUser,
-				token,
+				access_token,
+				refresh_token,
 				fetchToken,
-				setToken,
+				setAccessToken,
+				setRefreshToken,
+				hasToken,
+				setHasToken,
 				getToken,
 				currentUser,
 				setCurrentUser,
 				logout,
-				storage,
 			}}
 		>
 			{children}

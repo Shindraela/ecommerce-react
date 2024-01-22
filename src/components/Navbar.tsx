@@ -23,6 +23,7 @@ import UserContext from '../contexts/UserContext'
 import CartContext from '../contexts/CartContext'
 import { SearchBar } from './SearchBar'
 import { URLS } from '../constants'
+import storageService from '../services/storage.service'
 
 const Links = [
 	{
@@ -39,14 +40,16 @@ const Links = [
 
 export const Navbar = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
-	const { getToken, setToken, currentUser, setCurrentUser, storage } = useContext(UserContext)
+	const { getToken, setAccessToken, setRefreshToken, currentUser, setCurrentUser } =
+		useContext(UserContext)
 	const { getCounter } = useContext(CartContext)
 	const count = getCounter()
 	const nav = useNavigate()
 
 	const logout = () => {
-		storage.remove('token')
-		setToken(null)
+		storageService.remove('access_token')
+		setAccessToken(undefined)
+		setRefreshToken(undefined)
 		setCurrentUser(null)
 		nav(URLS.HOMEPAGE)
 	}
@@ -78,7 +81,7 @@ export const Navbar = () => {
 				</HStack>
 
 				<Flex align='center'>
-					{getToken() && currentUser ? (
+					{getToken('access_token') && currentUser ? (
 						<Menu>
 							<SearchBar />
 							<MenuButton as={Button} rounded='full' variant='link' cursor='pointer' minW={0}>

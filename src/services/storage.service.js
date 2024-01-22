@@ -1,6 +1,6 @@
-class handleStorage {
+class StorageService {
 	add(key, value) {
-		return localStorage.setItem(key, JSON.stringify(value))
+		return localStorage.setItem(key, value)
 	}
 	remove(key) {
 		return localStorage.removeItem(key)
@@ -10,4 +10,4 @@ class handleStorage {
 	}
 }
 
-export { handleStorage }
+export default new StorageService()

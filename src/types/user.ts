@@ -1,8 +1,8 @@
 import IToken from './token'
-import { handleStorage } from '../handleStorage'
 
 export default interface IUser {
-	id: number
+	_id: string
+	username: string
 	email: string
 	password: string
 	name: string
@@ -14,10 +14,13 @@ export default interface IUser {
 
 export type UserContextType = {
 	fetchToken: (body: any) => Promise<any>
-	setToken: React.Dispatch<React.SetStateAction<IToken | null>>
-	getToken: () => any
-	token: IToken | null
-	storage: handleStorage
+	access_token: IToken | undefined
+	refresh_token: IToken | undefined
+	setAccessToken: React.Dispatch<React.SetStateAction<IToken | undefined>>
+	setRefreshToken: React.Dispatch<React.SetStateAction<IToken | undefined>>
+	getToken: (tokenName: string) => any
+	hasToken: boolean
+	setHasToken: (hasToken: boolean) => void
 	createUser: (body: any) => Promise<any>
 	currentUser: IUser | null
 	setCurrentUser: (currentUser: IUser | null) => void
