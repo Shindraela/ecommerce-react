@@ -11,8 +11,8 @@ const instance = axios.create({
 const localAccessToken = storageService.get('access_token')
 const localRefreshToken = storageService.get('refresh_token')
 
-const refreshToken = async () => {
-	if (!localAccessToken && !localRefreshToken) return
+export const refreshToken = async token => {
+	if (!localAccessToken && !localRefreshToken) return token
 	const { data } = await instance.get(`${API_BASE_URL}/auth/refresh-token`, {
 		headers: {
 			...HTTP_HEADERS,

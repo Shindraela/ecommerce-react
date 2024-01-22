@@ -5,7 +5,7 @@ import storageService from '../services/storage.service'
 import ChildrenProps from '../types/children'
 import IToken from '../types/token'
 import IUser, { UserContextType } from '../types/user'
-import instance from '../services/api'
+import instance, { refreshToken } from '../services/api'
 
 const UserContext = createContext<UserContextType>({} as UserContextType)
 
@@ -54,6 +54,7 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 	}
 
 	const fetchProfile = async (tokenValue: string) => {
+		console.log('fetchProfile tokenValue :', tokenValue)
 		try {
 			const { data } = await instance.get(`${API_BASE_URL}/auth/profile`, {
 				headers: {
@@ -65,20 +66,14 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 
 			setCurrentUser(data)
 			nav(URLS.HOMEPAGE)
+
+			return data
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	const getToken = (tokenName: string) => {
-		const currentToken = storageService.get(tokenName)
-
-		if (!currentToken) {
-			return 'tokenExpired'
-		}
-
-		return currentToken
-	}
+	const getToken = (tokenName: string) => storageService.get(tokenName)
 
 	useEffect(() => {
 		const checkLoggedIn = async () => {
@@ -87,7 +82,17 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 			const refresh_token: string = storageService.get('refresh_token') as string
 
 			if (!access_token && !refresh_token) return
-			fetchProfile(access_token)
+			if (!access_token && refresh_token) {
+				const data = await refreshToken(refresh_token)
+				const { access_token, refresh_token: newRefreshToken } = data
+
+				storageService.add('access_token', access_token)
+				storageService.add('refresh_token', newRefreshToken)
+
+				return await fetchProfile(newRefreshToken)
+			}
+
+			return await fetchProfile(access_token)
 		}
 
 		checkLoggedIn()
