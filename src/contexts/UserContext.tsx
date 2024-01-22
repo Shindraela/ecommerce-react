@@ -54,7 +54,6 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 	}
 
 	const fetchProfile = async (tokenValue: string) => {
-		console.log('fetchProfile tokenValue :', tokenValue)
 		try {
 			const { data } = await instance.get(`${API_BASE_URL}/auth/profile`, {
 				headers: {
