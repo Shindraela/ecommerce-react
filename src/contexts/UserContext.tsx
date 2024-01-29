@@ -58,14 +58,12 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 			const { data } = await instance.get(`${API_BASE_URL}/auth/profile`, {
 				headers: {
 					...HTTP_HEADERS,
-					refresh_token: tokenValue,
 					Authorization: `Bearer ${tokenValue}`,
 				},
 			})
 
 			setCurrentUser(data)
 			nav(URLS.HOMEPAGE)
-
 			return data
 		} catch (error) {
 			console.error(error)
@@ -81,17 +79,8 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 			const refresh_token: string = storageService.get('refresh_token') as string
 
 			if (!access_token && !refresh_token) return
-			if (!access_token && refresh_token) {
-				const data = await refreshToken(refresh_token)
-				const { access_token, refresh_token: newRefreshToken } = data
-
-				storageService.add('access_token', access_token)
-				storageService.add('refresh_token', newRefreshToken)
-
-				return await fetchProfile(newRefreshToken)
-			}
-
-			return await fetchProfile(access_token)
+			const profile = await fetchProfile(access_token)
+			return profile
 		}
 
 		checkLoggedIn()

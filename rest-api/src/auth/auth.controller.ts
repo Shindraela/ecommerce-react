@@ -55,20 +55,22 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('refresh-token')
   async refresh(@Request() req: MyReq, @Res() res: Response): Promise<string> {
-    const oldRefreshToken: string = req.headers['refresh_token'] as string;
+    const oldRefreshToken: string = req.headers.authorization.replace(
+      'Bearer ',
+      '',
+    );
 
-    // Validate old refresh token, if invalid, throw an error
-    const user = await this.authService.decodeRefreshToken(oldRefreshToken);
-    const newAccessToken = await this.authService.createAccessToken(user._id);
-    const newRefreshToken = await this.authService.createRefreshToken(user._id);
+    const decodedToken = this.authService.decodeRefreshToken(oldRefreshToken);
+    // Invalidate old token and generate a new one
+    const newRefreshToken = await this.authService.replaceRefreshToken(
+      decodedToken._id,
+      decodedToken.tokenId,
+    );
+    const newAccessToken = await this.authService.createAccessToken(
+      decodedToken._id,
+    );
 
-    res
-      .cookie('refresh_token', newRefreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-      })
-      .send({ access_token: newAccessToken, refresh_token: newRefreshToken });
+    res.send({ access_token: newAccessToken, refresh_token: newRefreshToken });
 
     return newAccessToken;
   }

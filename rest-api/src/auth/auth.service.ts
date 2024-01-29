@@ -11,6 +11,8 @@ import { UsersService } from '../users/users.service';
 import { randomUUID } from 'crypto';
 import { LoginUserDto } from 'src/dto/login-user.dto';
 import { User } from 'src/interfaces/user.interface';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Injectable()
 export class AuthService {
@@ -39,16 +41,10 @@ export class AuthService {
     const accessToken = await this.createAccessToken(user._id);
     const refreshToken = await this.createRefreshToken(user._id);
 
-    res
-      .cookie('refresh_token', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-      })
-      .send({
-        access_token: accessToken,
-        refresh_token: refreshToken,
-      });
+    res.send({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    });
 
     return accessToken;
   }
@@ -66,11 +62,24 @@ export class AuthService {
     );
   }
 
-  async decodeRefreshToken(token: string) {
+  decodeRefreshToken(token: string) {
     try {
-      return this.jwtService.verify(token);
+      return this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET,
+      });
     } catch (error) {
       throw new UnauthorizedException('Invalid refresh token');
     }
+  }
+
+  async replaceRefreshToken(userId: string, tokenId: string) {
+    // Invalidate the old token by any means, e.g., storing the used token ID in a blacklist.
+    // Here, you might also check against a list of previously issued tokens for this user.
+    console.log('tokenId :', tokenId);
+
+    // Throw an error if the access token replaces the refresh token
+    if (!tokenId) throw new UnauthorizedException('Invalid refresh token');
+
+    return this.createRefreshToken(userId); // Generate a new token as shown previously
   }
 }

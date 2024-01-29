@@ -8,13 +8,15 @@ import { UsersService } from '../users/users.service';
 import { usersProviders } from 'src/providers/users.providers';
 import { JwtStrategy } from '../strategies/jwt/jwt.strategy';
 import { LocalStrategy } from '../strategies/local/local.strategy';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   imports: [
     DatabaseModule,
     UsersModule,
     JwtModule.register({
-      secret: `${process.env.JWT_SECRET}`,
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '10m' },
     }),
   ],
