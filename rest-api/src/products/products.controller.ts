@@ -3,6 +3,7 @@ import {
   Get,
   HttpStatus,
   NotFoundException,
+  Param,
   Query,
   Res,
 } from '@nestjs/common';
@@ -18,10 +19,11 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get('id')
-  async findById(@Res() res, @Query('id') id: string) {
+  @Get(':id')
+  async findById(@Param('id') id: string, @Res() res): Promise<Product> {
     const product = await this.productsService.findById(id);
     if (!product) throw new NotFoundException('Id does not exist!');
+
     return res.status(HttpStatus.OK).json(product);
   }
 

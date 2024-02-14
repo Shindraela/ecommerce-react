@@ -5,7 +5,7 @@ type CartType = {
 }
 
 export type CartProductType = {
-	id: number
+	_id: number
 	title: string
 	image: string
 	quantity: number

@@ -1,7 +1,6 @@
 import {
 	Card,
 	CardBody,
-	Image,
 	Stack,
 	Heading,
 	Text,
@@ -26,7 +25,8 @@ export const ProductCard = ({ product }: productProps) => {
 	const toast = useToast()
 
 	const addProduct = () => {
-		add(product.id)
+		add(product._id)
+
 		toast({
 			title: 'Product added.',
 			description: 'Product was added to your cart!',
@@ -39,16 +39,20 @@ export const ProductCard = ({ product }: productProps) => {
 	return (
 		<Card size='lg' variant='outline'>
 			<CardBody>
-				<Image
+				<img
 					src={product.images[0]}
 					alt={product.title}
-					borderRadius='lg'
-					objectFit='contain'
-					align='center'
+					style={{
+						width: '100%',
+						height: 'auto',
+						objectFit: 'contain',
+						objectPosition: 'center',
+						aspectRatio: '1',
+					}}
 				/>
 				<Stack mt='6' spacing='3'>
 					<Heading size='md'>
-						<Link to={`${URLS.PRODUCTS}/${product.id}`} relative='path'>
+						<Link to={`${URLS.PRODUCTS}/${product._id}`} relative='path'>
 							{product.title}
 						</Link>
 					</Heading>

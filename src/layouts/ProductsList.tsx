@@ -16,7 +16,7 @@ export const ProductsList = () => {
 
 			<SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} p={4}>
 				{allProducts &&
-					allProducts.map(product => <ProductCard key={product.id} product={product} />)}
+					allProducts.map(product => <ProductCard key={product._id} product={product} />)}
 			</SimpleGrid>
 		</>
 	)

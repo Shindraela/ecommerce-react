@@ -75,7 +75,6 @@ export class AuthService {
   async replaceRefreshToken(userId: string, tokenId: string) {
     // Invalidate the old token by any means, e.g., storing the used token ID in a blacklist.
     // Here, you might also check against a list of previously issued tokens for this user.
-    console.log('tokenId :', tokenId);
 
     // Throw an error if the access token replaces the refresh token
     if (!tokenId) throw new UnauthorizedException('Invalid refresh token');

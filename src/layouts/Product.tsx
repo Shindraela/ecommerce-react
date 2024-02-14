@@ -44,7 +44,7 @@ export const Product = () => {
 	}, [params.id])
 
 	const addProduct = () => {
-		if (product) add(product.id)
+		if (product) add(product._id)
 
 		toast({
 			title: 'Product added.',

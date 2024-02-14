@@ -48,6 +48,7 @@ export const Navbar = () => {
 
 	const logout = () => {
 		storageService.remove('access_token')
+		storageService.remove('refresh_token')
 		setAccessToken(undefined)
 		setRefreshToken(undefined)
 		setCurrentUser(null)
@@ -66,7 +67,9 @@ export const Navbar = () => {
 				/>
 
 				<HStack spacing={8} align='center'>
-					<Box>Logo</Box>
+					<Box>
+						<Link to='/'>Logo</Link>
+					</Box>
 					<HStack as='nav' spacing={4} display={{ base: 'none', md: 'flex' }}>
 						{Links.map(link => (
 							<Link key={link.id} to={link.href}>

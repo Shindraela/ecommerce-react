@@ -8,12 +8,15 @@ export const SearchBar = () => {
 	const [query, setQuery] = useState('')
 	const { allProducts } = useContext(ProductsContext)
 	const [results, setResults] = useState<IProduct[]>([])
+	const [emptyResults, setEmptyResults] = useState<string>('')
 
 	const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
 		setQuery(e.target.value)
 		const results = allProducts.filter(p =>
-			p.title.toLowerCase().includes(e.target.value.toLocaleLowerCase()),
+			p.title.toLowerCase().startsWith(e.target.value.toLocaleLowerCase()),
 		)
+
+		if (results.length === 0) setEmptyResults('No search found.')
 		setResults(results)
 	}
 
@@ -23,7 +26,7 @@ export const SearchBar = () => {
 	}
 
 	const searchStyle: React.CSSProperties = {
-		position: 'relative',
+		position: 'absolute',
 		top: '4rem',
 		zIndex: 1,
 		backgroundColor: 'white',
@@ -35,20 +38,26 @@ export const SearchBar = () => {
 	return (
 		<Flex align='center' direction='column' style={{ position: 'relative' }}>
 			<Box p={4}>
-				<Input placeholder='Search' value={query} onChange={e => onSearch(e)} />
+				<Stack>
+					<Input placeholder='Search' value={query} onChange={e => onSearch(e)} />
+				</Stack>
 
 				{query.length > 0 ? (
 					<Stack as='nav' spacing={4} style={searchStyle}>
-						{results.map(product => (
-							<Link
-								key={product.id}
-								to={`/products/${product.id}`}
-								relative='path'
-								onClick={resetSearch}
-							>
-								{product.title}
-							</Link>
-						))}
+						{results.length > 0 ? (
+							results.map(product => (
+								<Link
+									key={product._id}
+									to={`/products/${product._id}`}
+									relative='path'
+									onClick={resetSearch}
+								>
+									{product.title}
+								</Link>
+							))
+						) : (
+							<span>{emptyResults}</span>
+						)}
 					</Stack>
 				) : null}
 			</Box>

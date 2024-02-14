@@ -16,7 +16,7 @@ export const CartProvider = ({ children }: ChildrenProps) => {
 			const json = await response.json()
 
 			cart[productId] = {
-				productId: json.id,
+				productId: json._id,
 				quantity: 1,
 				price: json.price,
 			}

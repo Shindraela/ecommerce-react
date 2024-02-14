@@ -37,7 +37,7 @@ export const Cart = () => {
 					>
 						{currentCart() &&
 							currentCart().map(product => {
-								return <CartCard key={product.id} product={product} />
+								return <CartCard key={product._id} product={product} />
 							})}
 					</Stack>
 				) : (

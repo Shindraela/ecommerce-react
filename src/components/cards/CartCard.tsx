@@ -11,7 +11,7 @@ export const CartCard = ({ product }: cartProductProps) => {
 	const { add, decrease } = useContext(CartContext)
 
 	return (
-		<Center p={4} key={product.id}>
+		<Center p={4} key={product._id}>
 			<Flex flex={1}>
 				<Image objectFit='contain' boxSize='100%' src={product.image} />
 			</Flex>
@@ -48,7 +48,7 @@ export const CartCard = ({ product }: cartProductProps) => {
 						_focus={{
 							bg: 'gray.200',
 						}}
-						onClick={() => decrease(product.id)}
+						onClick={() => decrease(product._id)}
 					>
 						-
 					</Button>
@@ -70,7 +70,7 @@ export const CartCard = ({ product }: cartProductProps) => {
 						_focus={{
 							bg: 'blue.500',
 						}}
-						onClick={() => add(product.id)}
+						onClick={() => add(product._id)}
 					>
 						+
 					</Button>
