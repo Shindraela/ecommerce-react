@@ -11,7 +11,7 @@ export const ProductsList = () => {
 		<>
 			<SimpleGrid columns={{ base: 2, md: 2, lg: 6 }} spacing={8} p={4}>
 				{categories &&
-					categories.map(category => <Category key={category.id} category={category} />)}
+					categories.map(category => <Category key={category._id} category={category} />)}
 			</SimpleGrid>
 
 			<SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} p={4}>

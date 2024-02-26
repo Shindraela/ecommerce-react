@@ -37,20 +37,16 @@ instance.interceptors.response.use(
 		) {
 			// Access Token was expired
 			if (err.response.status === 401) {
-				try {
-					const data = await refreshToken(localRefreshToken)
-					const { access_token, refresh_token } = data
+				const data = await refreshToken(localRefreshToken)
+				const { access_token, refresh_token } = data
 
-					storageService.add('access_token', access_token)
-					storageService.add('refresh_token', refresh_token)
+				storageService.add('access_token', access_token)
+				storageService.add('refresh_token', refresh_token)
 
-					instance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
-					originalConfig.headers['Authorization'] = `Bearer ${access_token}`
+				instance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+				originalConfig.headers['Authorization'] = `Bearer ${access_token}`
 
-					return instance(originalConfig)
-				} catch (_error) {
-					return Promise.reject(_error)
-				}
+				return instance(originalConfig)
 			}
 		}
 

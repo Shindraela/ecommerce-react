@@ -12,7 +12,7 @@ export const Category = ({ category }: CategoryProps) => {
 	const { setAllProducts } = useContext(ProductsContext)
 
 	const fetchProductsByCategory = async () => {
-		const response = await fetch(`${API_BASE_URL}/products/?categoryId=${category.id}`)
+		const response = await fetch(`${API_BASE_URL}/products/?categoryId=${category._id}`)
 		const json = await response.json()
 
 		setAllProducts([...json])

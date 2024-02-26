@@ -12,17 +12,13 @@ export const ProductsProvider = ({ children }: ChildrenProps) => {
 
 	useEffect(() => {
 		const fetchProducts = async () => {
-			try {
-				const response = await fetch(`${API_BASE_URL}/products`)
-				const fetchCat = await fetch(`${API_BASE_URL}/categories`)
-				const list = await response.json()
-				const allCats = await fetchCat.json()
+			const response = await fetch(`${API_BASE_URL}/products`)
+			const fetchCat = await fetch(`${API_BASE_URL}/categories`)
+			const list = await response.json()
+			const allCats = await fetchCat.json()
 
-				setAllProducts([...list])
-				setCategories([...allCats])
-			} catch (error) {
-				console.error(error)
-			}
+			setAllProducts([...list])
+			setCategories([...allCats])
 		}
 
 		fetchProducts()

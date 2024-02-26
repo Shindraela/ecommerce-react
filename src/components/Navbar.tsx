@@ -24,6 +24,7 @@ import CartContext from '../contexts/CartContext'
 import { SearchBar } from './SearchBar'
 import { URLS } from '../constants'
 import storageService from '../services/storage.service'
+import { defaultUserState } from '../types/user'
 
 const Links = [
 	{
@@ -51,7 +52,7 @@ export const Navbar = () => {
 		storageService.remove('refresh_token')
 		setAccessToken(undefined)
 		setRefreshToken(undefined)
-		setCurrentUser(null)
+		setCurrentUser(defaultUserState)
 		nav(URLS.HOMEPAGE)
 	}
 

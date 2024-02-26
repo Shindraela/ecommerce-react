@@ -8,7 +8,7 @@ const CartContext = createContext<CartContextType>({} as CartContextType)
 export const CartProvider = ({ children }: ChildrenProps) => {
 	const [cart, setCart] = useState<ICart>({})
 
-	const add = async (productId: number) => {
+	const add = async (productId: string) => {
 		if (cart[productId]) {
 			cart[productId].quantity += 1
 		} else {
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }: ChildrenProps) => {
 		setCart({ ...cart })
 	}
 
-	const decrease = (productId: number) => {
+	const decrease = (productId: string) => {
 		if (!cart[productId]) {
 			return
 		}

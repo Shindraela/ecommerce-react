@@ -1,7 +1,7 @@
 import ICategory from '../types/category'
 
 export default interface IProduct {
-	_id: number
+	_id: string
 	title: string
 	price: number
 	description: string

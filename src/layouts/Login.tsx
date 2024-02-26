@@ -17,30 +17,36 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import { URLS } from '../constants'
+import storageService from '../services/storage.service'
 
 export const Login = () => {
 	const nav = useNavigate()
-	const { fetchToken } = useContext(UserContext)
+	const { login, fetchProfile, setCurrentUser } = useContext(UserContext)
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [showPassword, setShowPassword] = useState(false)
 	const [error, setError] = useState(false)
 
-	const onSubmit = async (e: React.SyntheticEvent) => {
+	const onSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault()
-		const body = { username, password }
 
-		try {
-			await fetchToken(body).then(response => {
-				if (response && response.statusCode === 401) {
-					setError(true)
-				} else {
-					nav(URLS.HOMEPAGE)
+		login(username, password)
+			.then(({ data }) => {
+				if (data.access_token) {
+					storageService.add('access_token', data.access_token)
+					storageService.add('refresh_token', data.refresh_token)
 				}
 			})
-		} catch (error) {
-			console.error('error', error)
-		}
+			.then(() => {
+				const accessToken = storageService.get('access_token') as string
+
+				fetchProfile(accessToken).then(({ data, status }) => {
+					if (status === 200) {
+						setCurrentUser(data)
+						nav(URLS.HOMEPAGE)
+					}
+				})
+			})
 	}
 
 	return (

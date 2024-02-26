@@ -33,18 +33,14 @@ export const Signup = () => {
 		e.preventDefault()
 		const body = { username, email, password }
 
-		try {
-			await createUser(body).then(response => {
-				if (response && response.statusCode === 400) {
-					setError(true)
-					setErrorMessages([...response.message])
-				} else {
-					nav(URLS.LOGIN)
-				}
-			})
-		} catch (error) {
-			console.error('error', error)
-		}
+		await createUser(body).then(response => {
+			if (response && response.statusCode === 400) {
+				setError(true)
+				setErrorMessages([...response.message])
+			} else {
+				nav(URLS.LOGIN)
+			}
+		})
 	}
 
 	return (

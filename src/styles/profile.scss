@@ -1,0 +1,36 @@
+// html {
+//   font-size: 62.5%;
+// }
+
+// body {
+//   font-size: 1.6rem;
+// }
+
+.UserPersonalData {
+  &-list {
+    list-style-type: none;
+    max-width: 260px;
+
+    &Item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+
+  &-editedInput {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  &-button {
+    &--update {
+      border: 1px solid black;
+      border-radius: 1rem;
+      margin-top: 2rem;
+      padding: 1rem;
+    }
+  }
+}

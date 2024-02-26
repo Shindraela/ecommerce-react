@@ -30,21 +30,19 @@ export const Product = () => {
 
 	useEffect(() => {
 		const fetchProduct = async () => {
-			try {
-				const response = await fetch(`${API_BASE_URL}/products/${params.id}`)
-				const json = await response.json()
+			const response = await fetch(`${API_BASE_URL}/products/${params._id}`)
+			const json = await response.json()
 
-				setProduct(json)
-			} catch (error) {
-				console.error(error)
-			}
+			setProduct(json)
 		}
 
 		fetchProduct()
-	}, [params.id])
+	}, [params._id])
 
 	const addProduct = () => {
-		if (product) add(product._id)
+		if (product) {
+			add(product._id)
+		}
 
 		toast({
 			title: 'Product added.',
