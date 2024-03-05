@@ -2,10 +2,12 @@ import { SimpleGrid } from '@chakra-ui/react'
 import { useContext } from 'react'
 import { ProductCard } from '../components/cards/ProductCard'
 import ProductsContext from '../contexts/ProductsContext'
+import CategoriesContext from '../contexts/CategoriesContext'
 import { Category } from '../components/Category'
 
 export const ProductsList = () => {
-	const { categories, allProducts } = useContext(ProductsContext)
+	const { products } = useContext(ProductsContext)
+	const { categories } = useContext(CategoriesContext)
 
 	return (
 		<>
@@ -15,8 +17,7 @@ export const ProductsList = () => {
 			</SimpleGrid>
 
 			<SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} p={4}>
-				{allProducts &&
-					allProducts.map(product => <ProductCard key={product._id} product={product} />)}
+				{products && products.map(product => <ProductCard key={product._id} product={product} />)}
 			</SimpleGrid>
 		</>
 	)

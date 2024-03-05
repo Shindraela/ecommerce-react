@@ -13,9 +13,9 @@ const currencyOptions = {
 
 export const Cart = () => {
 	const { cart, getTotal } = useContext(CartContext)
-	const { allProducts } = useContext(ProductsContext)
+	const { products } = useContext(ProductsContext)
 	const currentCart = () =>
-		Object.keys(cart).map(productId => formattedCart(allProducts, cart[productId]))
+		Object.keys(cart).map(productId => formattedCart(products, cart[productId]))
 	const total = getTotal()
 
 	return (

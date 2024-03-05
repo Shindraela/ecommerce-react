@@ -47,7 +47,7 @@ export const Navbar = () => {
 	const count = getCounter()
 	const nav = useNavigate()
 
-	const logout = () => {
+	const logout = (): void => {
 		storageService.remove('access_token')
 		storageService.remove('refresh_token')
 		setAccessToken(undefined)

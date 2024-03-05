@@ -2,23 +2,32 @@ import { createContext, useState } from 'react'
 import { API_BASE_URL } from '../constants'
 import ChildrenProps from '../types/children'
 import ICart, { CartContextType } from '../types/cart'
+import IProduct from '../types/product'
+import { requests } from '../services/api.requests'
 
 const CartContext = createContext<CartContextType>({} as CartContextType)
 
+type ProductResponseType = {
+	data: IProduct
+	status: number
+}
+
 export const CartProvider = ({ children }: ChildrenProps) => {
 	const [cart, setCart] = useState<ICart>({})
+
+	const getProductById = (productId: string): Promise<ProductResponseType> =>
+		requests.get(`${API_BASE_URL}/products/${productId}`)
 
 	const add = async (productId: string) => {
 		if (cart[productId]) {
 			cart[productId].quantity += 1
 		} else {
-			const response = await fetch(`${API_BASE_URL}/products/${productId}`)
-			const json = await response.json()
+			const { data } = await getProductById(productId)
 
 			cart[productId] = {
-				productId: json._id,
+				productId: data._id,
 				quantity: 1,
-				price: json.price,
+				price: data.price,
 			}
 		}
 

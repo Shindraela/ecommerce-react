@@ -14,7 +14,7 @@ export default interface IUser {
 	refresh_token?: string
 }
 
-export type ResponseType = {
+export type UserResponseType = {
 	data: IUser
 	status: number
 	access_token?: string
@@ -22,8 +22,8 @@ export type ResponseType = {
 }
 
 export type UserContextType = {
-	login: (username: string, password: string) => Promise<ResponseType>
-	fetchProfile: (access_token: string) => Promise<ResponseType>
+	login: (username: string, password: string) => Promise<UserResponseType>
+	fetchProfile: (access_token: string) => Promise<UserResponseType>
 	access_token: IToken | undefined
 	refresh_token: IToken | undefined
 	setAccessToken: React.Dispatch<React.SetStateAction<IToken | undefined>>
@@ -34,7 +34,7 @@ export type UserContextType = {
 	createUser: (body: any) => Promise<any>
 	currentUser: IUser
 	setCurrentUser: (currentUser: IUser) => void
-	updateUser: (currentUser: IUser) => Promise<ResponseType>
+	updateUser: (currentUser: IUser) => Promise<UserResponseType>
 	logout: () => void
 }
 

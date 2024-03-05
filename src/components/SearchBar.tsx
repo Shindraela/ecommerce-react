@@ -6,13 +6,13 @@ import IProduct from '../types/product'
 
 export const SearchBar = () => {
 	const [query, setQuery] = useState('')
-	const { allProducts } = useContext(ProductsContext)
+	const { products } = useContext(ProductsContext)
 	const [results, setResults] = useState<IProduct[]>([])
 	const [emptyResults, setEmptyResults] = useState<string>('')
 
-	const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
+	const onSearch = (e: ChangeEvent<HTMLInputElement>): void => {
 		setQuery(e.target.value)
-		const results = allProducts.filter(p =>
+		const results = products.filter(p =>
 			p.title.toLowerCase().startsWith(e.target.value.toLocaleLowerCase()),
 		)
 
@@ -20,7 +20,7 @@ export const SearchBar = () => {
 		setResults(results)
 	}
 
-	const resetSearch = () => {
+	const resetSearch = (): void => {
 		setQuery('')
 		setResults([])
 	}

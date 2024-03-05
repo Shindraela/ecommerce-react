@@ -4,7 +4,7 @@ import { API_BASE_URL, URLS } from '../constants'
 import storageService from '../services/storage.service'
 import ChildrenProps from '../types/children'
 import IToken from '../types/token'
-import IUser, { defaultUserState, ResponseType, UserContextType } from '../types/user'
+import IUser, { defaultUserState, UserResponseType, UserContextType } from '../types/user'
 import { requests } from '../services/api.requests'
 
 const UserContext = createContext<UserContextType>({} as UserContextType)
@@ -16,20 +16,20 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 	const [currentUser, setCurrentUser] = useState<IUser>(defaultUserState)
 	const nav = useNavigate()
 
-	const createUser = (body: IUser): Promise<ResponseType> =>
+	const createUser = (body: IUser): Promise<UserResponseType> =>
 		requests.post(`${API_BASE_URL}/auth/signup`, body)
 
-	const updateUser = (body: IUser): Promise<ResponseType> =>
+	const updateUser = (body: IUser): Promise<UserResponseType> =>
 		requests.put(`${API_BASE_URL}/users/${body._id}`, body)
 
-	const fetchProfile = (tokenValue: string): Promise<ResponseType> =>
+	const fetchProfile = (tokenValue: string): Promise<UserResponseType> =>
 		requests.get(`${API_BASE_URL}/auth/profile`, {
 			headers: {
 				Authorization: `Bearer ${tokenValue}`,
 			},
 		})
 
-	const login = (username: string, password: string): Promise<ResponseType> =>
+	const login = (username: string, password: string): Promise<UserResponseType> =>
 		requests.post(`${API_BASE_URL}/auth/login`, { username, password })
 
 	const getToken = (tokenName: string) => storageService.get(tokenName)
@@ -42,6 +42,7 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 
 			if (!access_token && !refresh_token) return
 			const profile = await fetchProfile(access_token)
+			setCurrentUser(profile.data)
 			return profile
 		}
 

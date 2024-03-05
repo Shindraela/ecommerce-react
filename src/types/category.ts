@@ -5,3 +5,13 @@ export default interface ICategory {
 	creationAt?: string
 	updatedAt?: string
 }
+
+export type CategoriesResponseType = {
+	data: ICategory[]
+	status: number
+}
+
+export type CategoriesContextType = {
+	categories: ICategory[]
+	setCategories: (categories: ICategory[]) => void
+}

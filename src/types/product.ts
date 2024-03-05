@@ -12,8 +12,12 @@ export default interface IProduct {
 	images: string[]
 }
 
+export type ProductsResponseType = {
+	data: IProduct[]
+	status: number
+}
+
 export type ProductsContextType = {
-	allProducts: IProduct[]
-	categories: ICategory[]
-	setAllProducts: (allProducts: IProduct[]) => void
+	products: IProduct[]
+	setProducts: (products: IProduct[]) => void
 }

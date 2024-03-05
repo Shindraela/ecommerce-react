@@ -1,31 +1,28 @@
 import { createContext, useState, useEffect } from 'react'
 import { API_BASE_URL } from '../constants'
 import ChildrenProps from '../types/children'
-import IProduct, { ProductsContextType } from '../types/product'
-import ICategory from '../types/category'
+import { requests } from '../services/api.requests'
+import IProduct, { ProductsContextType, ProductsResponseType } from '../types/product'
 
 const ProductsContext = createContext<ProductsContextType>({} as ProductsContextType)
 
 export const ProductsProvider = ({ children }: ChildrenProps) => {
-	const [allProducts, setAllProducts] = useState<IProduct[]>([])
-	const [categories, setCategories] = useState<ICategory[]>([])
+	const [products, setProducts] = useState<IProduct[]>([])
+
+	const getProducts = (): Promise<ProductsResponseType> => requests.get(`${API_BASE_URL}/products`)
 
 	useEffect(() => {
-		const fetchProducts = async () => {
-			const response = await fetch(`${API_BASE_URL}/products`)
-			const fetchCat = await fetch(`${API_BASE_URL}/categories`)
-			const list = await response.json()
-			const allCats = await fetchCat.json()
+		const fetchData = async () => {
+			const { data: products } = await getProducts()
 
-			setAllProducts([...list])
-			setCategories([...allCats])
+			setProducts(products)
 		}
 
-		fetchProducts()
+		fetchData()
 	}, [])
 
 	return (
-		<ProductsContext.Provider value={{ allProducts, setAllProducts, categories }}>
+		<ProductsContext.Provider value={{ products, setProducts }}>
 			{children}
 		</ProductsContext.Provider>
 	)

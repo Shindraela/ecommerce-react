@@ -1,5 +1,5 @@
 type CartType = {
-	productId: number
+	productId: number | string
 	quantity: number
 	price: number
 }

@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import { Button, Stack, useToast } from '@chakra-ui/react'
 import UserContext from '../contexts/UserContext'
 import IUser from '../types/user'
@@ -8,8 +8,11 @@ export const UserPersonalData = () => {
 	const { currentUser, setCurrentUser, updateUser } = useContext(UserContext)
 	const [switchToForm, setSwitchToForm] = useState<boolean>(false)
 	const [editedUser, setEditedUser] = useState<IUser>(currentUser)
-	const [isError, setIsError] = useState<boolean>(false)
 	const toast = useToast()
+
+	useEffect(() => {
+		setEditedUser(currentUser)
+	}, [currentUser])
 
 	const handleFirstNameChange = (e: FormEvent<HTMLInputElement>): void => {
 		const currentUsername = e.currentTarget.value
@@ -29,9 +32,21 @@ export const UserPersonalData = () => {
 		}))
 	}
 
-	const switchToUpdate = () => (switchToForm ? setSwitchToForm(false) : setSwitchToForm(true))
+	const switchToUpdate = (): void => {
+		if (switchToForm) {
+			setEditedUser((editedUser: IUser) => ({
+				...editedUser,
+				email: currentUser.email,
+				username: currentUser.username,
+			}))
 
-	const updateProfile = () => {
+			setSwitchToForm(false)
+		} else {
+			setSwitchToForm(true)
+		}
+	}
+
+	const updateProfile = (): void => {
 		updateUser(editedUser)
 			.then(({ data, status }) => {
 				if (status === 200) {
@@ -49,7 +64,6 @@ export const UserPersonalData = () => {
 				setSwitchToForm(false)
 			})
 			.catch(error => {
-				setIsError(true)
 				toast({
 					title: 'User update failed.',
 					description: 'Oops, an error occured!',
