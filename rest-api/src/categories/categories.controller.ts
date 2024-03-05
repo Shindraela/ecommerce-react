@@ -3,11 +3,12 @@ import {
   Get,
   HttpStatus,
   NotFoundException,
-  Query,
+  Param,
   Res,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { Category } from '../interfaces/category.interface';
+import { Product } from 'src/interfaces/product.interface';
 
 @Controller('categories')
 export class CategoriesController {
@@ -18,10 +19,11 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
-  @Get('id')
-  async findById(@Res() res, @Query('id') id: string) {
+  @Get(':id')
+  async findById(@Param('id') id: string, @Res() res): Promise<Product[]> {
     const category = await this.categoriesService.findById(id);
     if (!category) throw new NotFoundException('Id does not exist!');
+
     return res.status(HttpStatus.OK).json(category);
   }
 }

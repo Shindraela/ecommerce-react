@@ -1,9 +1,9 @@
+import { ProductsResponseType } from './product'
+
 export default interface ICategory {
 	_id: string
 	name: string
-	image?: string
-	creationAt?: string
-	updatedAt?: string
+	common: string
 }
 
 export type CategoriesResponseType = {
@@ -14,4 +14,5 @@ export type CategoriesResponseType = {
 export type CategoriesContextType = {
 	categories: ICategory[]
 	setCategories: (categories: ICategory[]) => void
+	getProductsByCategory: (categoryName: string) => Promise<ProductsResponseType>
 }

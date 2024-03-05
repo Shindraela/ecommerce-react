@@ -19,16 +19,18 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
+  @Get('findByFilter')
+  async findByFilter(
+    @Query() query: { [key: string]: string },
+  ): Promise<Product[]> {
+    return this.productsService.findQuery({ ...query });
+  }
+
   @Get(':id')
   async findById(@Param('id') id: string, @Res() res): Promise<Product> {
     const product = await this.productsService.findById(id);
     if (!product) throw new NotFoundException('Id does not exist!');
 
     return res.status(HttpStatus.OK).json(product);
-  }
-
-  @Get('findByFilter')
-  async findByFilter(@Query() query): Promise<Product[]> {
-    return this.productsService.findQuery({ ...query });
   }
 }
